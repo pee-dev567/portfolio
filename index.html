@@ -7,11 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <style>
         /* ==========================================
-           1. CORE & COLOR PALETTE (Medical Cyberpunk)
+           1. CORE & COLOR PALETTE
            ========================================== */
         :root {
             --bg-dark: #040814;
@@ -20,7 +19,6 @@
             --primary-cyan: #38bdf8;
             --primary-glow: rgba(56, 189, 248, 0.4);
             --accent-blue: #2563eb;
-            --accent-teal: #0d9488;
             --text-main: #f1f5f9;
             --text-sub: #94a3b8;
             --font-main: 'Prompt', 'Plus Jakarta Sans', sans-serif;
@@ -41,39 +39,27 @@
             position: relative;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb {
             background: #1e293b;
             border-radius: 4px;
             border: 1px solid var(--border-glass);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-cyan);
-        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-cyan); }
 
-        /* Canvas Background */
         #particle-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: -1;
             pointer-events: none;
         }
 
-        /* Custom Medical Cursor */
         .cursor-dot, .cursor-outline {
             pointer-events: none;
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             border-radius: 50%;
             opacity: 0;
             transform: translate(-50%, -50%);
@@ -81,19 +67,16 @@
             z-index: 9999;
         }
         .cursor-dot {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             background-color: var(--primary-cyan);
             box-shadow: 0 0 10px var(--primary-cyan);
         }
         .cursor-outline {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border: 1.5px solid var(--primary-cyan);
             box-shadow: 0 0 15px var(--primary-glow);
         }
 
-        /* Ambient Glow Spheres */
         .glow-sphere {
             position: absolute;
             border-radius: 50%;
@@ -102,18 +85,14 @@
             pointer-events: none;
         }
         .glow-1 {
-            width: 400px;
-            height: 400px;
+            width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, rgba(0,0,0,0) 70%);
-            top: -100px;
-            left: -100px;
+            top: -100px; left: -100px;
         }
         .glow-2 {
-            width: 500px;
-            height: 500px;
+            width: 500px; height: 500px;
             background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, rgba(0,0,0,0) 70%);
-            bottom: 10%;
-            right: -150px;
+            bottom: 10%; right: -150px;
         }
 
         /* ==========================================
@@ -121,14 +100,11 @@
            ========================================== */
         nav {
             position: fixed;
-            top: 20px;
-            left: 50%;
+            top: 20px; left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1100px;
+            width: 90%; max-width: 1100px;
             background: rgba(4, 8, 20, 0.7);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-glass);
             border-radius: 50px;
             padding: 12px 30px;
@@ -150,8 +126,7 @@
             gap: 10px;
         }
         .logo-dot {
-            width: 10px;
-            height: 10px;
+            width: 10px; height: 10px;
             background-color: var(--primary-cyan);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--primary-cyan);
@@ -169,7 +144,6 @@
             text-decoration: none;
             font-size: 0.95rem;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .nav-links a:hover {
@@ -186,7 +160,6 @@
             align-items: center;
             justify-content: center;
             padding: 120px 20px 60px;
-            position: relative;
         }
 
         .hero-container {
@@ -198,17 +171,8 @@
             align-items: center;
         }
 
-        .hero-text h3 {
-            color: var(--primary-cyan);
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
         .hero-text h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 800;
             line-height: 1.15;
             margin-bottom: 20px;
@@ -227,7 +191,7 @@
             color: var(--text-sub);
             font-size: 1.05rem;
             line-height: 1.7;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .badge-wamw {
@@ -243,10 +207,7 @@
             margin-bottom: 20px;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 20px;
-        }
+        .btn-group { display: flex; gap: 20px; }
 
         .btn-primary {
             padding: 14px 32px;
@@ -263,18 +224,13 @@
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
-            background: linear-gradient(135deg, #3b82f6, var(--accent-blue));
         }
 
-        /* Profile Glass Card (3D Tilt Effect) */
-        .profile-card-wrapper {
-            perspective: 1000px;
-        }
+        .profile-card-wrapper { perspective: 1000px; }
 
         .profile-card {
             background: var(--bg-card);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-glass);
             border-radius: 24px;
             padding: 24px;
@@ -282,21 +238,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transition: 0.5s;
-        }
-
-        .profile-card:hover::before {
-            left: 100%;
         }
 
         .img-box {
@@ -306,44 +247,25 @@
             overflow: hidden;
             margin-bottom: 20px;
             border: 1px solid var(--border-glass);
-            position: relative;
         }
 
         .img-box img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
-            filter: saturate(1.1) contract(1.05);
-            transition: transform 0.5s ease;
-        }
-
-        .profile-card:hover .img-box img {
-            transform: scale(1.05);
-        }
-
-        .profile-info h4 {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-
-        .profile-info p {
-            color: var(--primary-cyan);
-            font-size: 0.9rem;
         }
 
         /* ==========================================
-           4. SECTIONS & CARDS GENERAL
+           4. SECTIONS, INFO & SKILLS
            ========================================== */
         section {
-            padding: 100px 20px;
+            padding: 80px 20px;
             max-width: 1100px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .section-title h2 {
@@ -352,24 +274,109 @@
             background: linear-gradient(135deg, #fff, var(--text-sub));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block;
             position: relative;
+            display: inline-block;
         }
 
         .section-title h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
+            bottom: -10px; left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
+            width: 60px; height: 3px;
             background: var(--primary-cyan);
             border-radius: 2px;
             box-shadow: 0 0 10px var(--primary-cyan);
         }
 
-        /* Glass Grid Layout */
+        /* Personal Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover { transform: translateY(-5px); border-color: var(--primary-cyan); }
+
+        .info-icon {
+            font-size: 1.8rem;
+            background: rgba(56, 189, 248, 0.1);
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-glass);
+        }
+
+        .info-text label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin-bottom: 2px;
+        }
+
+        .info-text span {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Skills Progress Bars */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 20px 25px;
+            backdrop-filter: blur(16px);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .skill-name { color: #fff; font-size: 1rem; }
+        .skill-value { color: var(--primary-cyan); font-weight: 700; }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--primary-cyan));
+            border-radius: 10px;
+            box-shadow: 0 0 12px var(--primary-cyan);
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Glass Cards for Goals */
         .grid-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -379,40 +386,21 @@
         .glass-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-glass);
             border-radius: 20px;
             padding: 30px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            transition: all 0.3s ease;
         }
 
         .glass-card:hover {
             transform: translateY(-8px);
             border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(56, 189, 248, 0.15);
         }
 
-        .card-icon {
-            font-size: 2rem;
-            color: var(--primary-cyan);
-            margin-bottom: 20px;
-            display: inline-block;
-        }
+        .glass-card h3 { color: #fff; margin: 15px 0 10px; }
+        .glass-card p { color: var(--text-sub); font-size: 0.95rem; line-height: 1.6; }
 
-        .glass-card h3 {
-            font-size: 1.25rem;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .glass-card p {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Quote Box Section */
+        /* Quote Section */
         .quote-container {
             background: linear-gradient(135deg, rgba(10,25,47,0.8), rgba(15,23,42,0.8));
             border: 1px solid var(--border-glass);
@@ -420,62 +408,38 @@
             border-radius: 16px;
             padding: 40px;
             text-align: center;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .quote-text {
-            font-size: 1.25rem;
-            font-style: italic;
-            color: #e2e8f0;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
+        .quote-text { font-size: 1.2rem; font-style: italic; color: #e2e8f0; margin-bottom: 12px; }
+        .quote-author { color: var(--primary-cyan); font-weight: 600; }
 
-        .quote-author {
-            color: var(--primary-cyan);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
             border-top: 1px solid var(--border-glass);
             color: var(--text-sub);
             font-size: 0.85rem;
-            background: rgba(4, 8, 20, 0.95);
         }
 
-        /* Animations */
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(0.85); }
         }
 
-        /* Responsive Design */
         @media (max-width: 868px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-text h1 { font-size: 2.5rem; }
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .skills-container { grid-template-columns: 1fr; }
             .btn-group { justify-content: center; }
-            .nav-links { display: none; } /* สามารถเพิ่ม Mobile Menu ได้ภายหลัง */
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvas สำหรับ Background Particles -->
     <canvas id="particle-canvas"></canvas>
-
-    <!-- Custom Cursor Effect -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Ambient Glow Backgrounds -->
     <div class="glow-sphere glow-1"></div>
     <div class="glow-sphere glow-2"></div>
 
@@ -486,9 +450,9 @@
             SIRINPONG.MED
         </a>
         <ul class="nav-links">
-            <li><a href="#about">เกี่ยวกับฉัน</a></li>
-            <li><a href="#goals">เป้าหมายวิจัย</a></li>
-            <li><a href="#quote">ปมอุดมการณ์</a></li>
+            <li><a href="#about">ข้อมูลส่วนตัว</a></li>
+            <li><a href="#skills">ความถนัด</a></li>
+            <li><a href="#goals">เป้าหมาย</a></li>
         </ul>
     </nav>
 
@@ -497,27 +461,133 @@
         <div class="hero-container">
             <div class="hero-text">
                 <div class="badge-wamw">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    โครงการ วมว. — มหาวิทยาลัยนเรศวร
+                    🧬 โครงการ วมว. — มหาวิทยาลัยนเรศวร
                 </div>
                 <h1>มุ่งมั่นสู่เส้นทาง <span>แพทย์นักวิจัย</span> แห่งอนาคต</h1>
-                <p>สวัสดีครับผม <strong>นายศิริณพงศ์ อำไพพันธุ์</strong> มีความผูกพันและหลงใหลในวิทยาศาสตร์ชีวภาพ เชื่อมั่นว่าการผสมผสานเทคโนโลยี นวัตกรรมทางการแพทย์ และความเข้าใจมนุษย์ คือหัวใจสำคัญในการยกระดับคุณภาพชีวิตของผู้ป่วยอย่างยั่งยืน</p>
+                <p>สวัสดีครับผม <strong>นายศิริณพงศ์ อำไพพันธุ์</strong> นักเรียนผู้หลงใหลในชีววิทยาและการวิจัยทางการแพทย์ เชื่อมั่นในการประยุกต์ใช้นวัตกรรมเพื่อยกระดับคุณภาพชีวิตของผู้ป่วย</p>
                 <div class="btn-group">
-                    <a href="#goals" class="btn-primary">สำรวจเป้าหมาย</a>
+                    <a href="#skills" class="btn-primary">ดูระดับความถนัด</a>
                 </div>
             </div>
 
-            <!-- Profile Card พร้อมเอฟเฟกต์ 3D Tilt -->
             <div class="profile-card-wrapper">
                 <div class="profile-card" id="tilt-card">
                     <div class="img-box">
-                        <!-- เปลี่ยนเป็นรูปของคุณได้ที่ src -->
                         <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" alt="ศิริณพงศ์ อำไพพันธุ์">
                     </div>
-                    <div class="profile-info">
-                        <h4>ศิริณพงศ์ อำไพพันธุ์</h4>
-                        <p>Future Medical Researcher</p>
-                    </div>
+                    <h4>ศิริณพงศ์ อำไพพันธุ์</h4>
+                    <p style="color: var(--primary-cyan); font-size: 0.9rem; margin-top: 4px;">Future Medical Researcher</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. Personal Info Section (ข้อมูลส่วนตัว) -->
+    <section id="about">
+        <div class="section-title">
+            <h2>ข้อมูลส่วนตัว (Personal Info)</h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">👤</div>
+                <div class="info-text">
+                    <label>ชื่อ-นามสกุล</label>
+                    <span>ศิริณพงศ์ อำไพพันธุ์</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🎓</div>
+                <div class="info-text">
+                    <label>โครงการการศึกษา</label>
+                    <span>โครงการ วมว. มน.</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🎯</div>
+                <div class="info-text">
+                    <label>เป้าหมายการศึกษา</label>
+                    <span>คณะแพทยศาสตร์</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🔬</div>
+                <div class="info-text">
+                    <label>ความสนใจหลัก</label>
+                    <span>Medical Research & Bio-Tech</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Skills & Competencies Section (ความถนัดระบุเป็นตัวเลข %) -->
+    <section id="skills">
+        <div class="section-title">
+            <h2>ทักษะและความถนัด (Skill Matrix)</h2>
+        </div>
+        <div class="skills-container">
+            <!-- Skill 1 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">🧬 ชีววิทยา & วิทยาศาสตร์การแพทย์</span>
+                    <span class="skill-value">92%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" style="width: 92%;"></div>
+                </div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">🔬 กระบวนการวิจัย & สถิติวิเคราะห์</span>
+                    <span class="skill-value">88%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" style="width: 88%;"></div>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">🧪 เคมีเชิงชีวภาพ (Biochemistry)</span>
+                    <span class="skill-value">85%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">💻 เทคโนโลยีสารสนเทศทางการแพทย์</span>
+                    <span class="skill-value">80%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+            </div>
+
+            <!-- Skill 5 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">🗣️ ภาษาอังกฤษวิชาการ & การนำเสนอ</span>
+                    <span class="skill-value">83%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" style="width: 83%;"></div>
+                </div>
+            </div>
+
+            <!-- Skill 6 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">🧩 การแก้ปัญหาเชิงตรรกะ & วิเคราะห์</span>
+                    <span class="skill-value">90%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" style="width: 90%;"></div>
                 </div>
             </div>
         </div>
@@ -526,47 +596,39 @@
     <!-- Goals Section -->
     <section id="goals">
         <div class="section-title">
-            <h2>เป้าหมายและความมุ่งมั่น</h2>
+            <h2>เป้าหมายในอนาคต</h2>
         </div>
         <div class="grid-cards">
             <div class="glass-card">
-                <div class="card-icon">🩺</div>
+                <div class="card-icon" style="font-size: 2rem;">🩺</div>
                 <h3>การศึกษาสายแพทยศาสตร์</h3>
-                <p>มุ่งมั่นเข้าศึกษาในคณะแพทยศาสตร์ เพื่อสะสมองค์ความรู้พื้นฐานทางคลินิกอย่างลึกซึ้ง พัฒนาทักษะการวินิจฉัยและการรักษาอย่างตรงจุด</p>
+                <p>มุ่งศึกษาเพื่อทำความเข้าใจกลไกของร่างกายมนุษย์และโรคภัยต่างๆ อย่างลึกซึ้ง</p>
             </div>
             <div class="glass-card">
-                <div class="card-icon">🔬</div>
+                <div class="card-icon" style="font-size: 2rem;">🔬</div>
                 <h3>งานวิจัยทางการแพทย์</h3>
-                <p>ต่อยอดความรู้สู่การเป็นนักวิจัย ค้นคว้างานวิจัยระดับนวัตกรรมเพื่อช่วยแก้ไขปัญหาโรคซับซ้อน และพัฒนายาหรือแนวทางการรักษาใหม่ๆ</p>
-            </div>
-            <div class="glass-card">
-                <div class="card-icon">🧬</div>
-                <h3>นวัตกรรมสุขภาพ (Health-Tech)</h3>
-                <p>ประยุกต์ใช้วิทยาศาสตร์และเทคโนโลยีร่วมกับชีววิทยา เพื่อเพิ่มประสิทธิภาพการดูแลสุขภาพของคนไทยให้เข้าถึงได้และมีแม่นยำสูงขึ้น</p>
+                <p>สร้างสรรค์งานวิจัยนวัตกรรมใหม่เพื่อต่อยอดการรักษาผู้ป่วยให้มีประสิทธิภาพสูงสุด</p>
             </div>
         </div>
     </section>
 
-    <!-- Philosophy / Quote Section -->
+    <!-- Quote Section -->
     <section id="quote">
         <div class="quote-container">
             <div class="quote-text">
-                "การรักษาคนไม่ได้เริ่มต้นที่การรักษาโรค... แต่เริ่มจากการเข้าใจมนุษย์ การวิจัยและวิทยาศาสตร์จะเป็นเครื่องมือที่ช่วยส่งมอบชีวิตที่ดีกว่าให้แก่พวกเขา"
+                "การรักษาคนไม่ได้เริ่มต้นที่การรักษาโรค... แต่เริ่มจากการเข้าใจมนุษย์"
             </div>
             <div class="quote-author">— ศิริณพงศ์ อำไพพันธุ์</div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>© 2026 Sirinpong Ampaipan. Crafted for Medical & Scientific Excellence.</p>
     </footer>
 
-    <!-- ==========================================
-       5. JAVASCRIPT EFFECTS
-       ========================================== -->
+    <!-- JavaScript Effects -->
     <script>
-        /* --- 1. Custom Medical Particles Canvas --- */
+        // Canvas Particles
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -603,14 +665,10 @@
             }
         }
 
-        for (let i = 0; i < 75; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < 75; i++) particles.push(new Particle());
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Connect nearby particles with medical "network" lines
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a; b < particles.length; b++) {
                     let dx = particles[a].x - particles[b].x;
@@ -627,36 +685,24 @@
                     }
                 }
             }
-
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
-        /* --- 2. Custom Smooth Cursor --- */
+        // Custom Cursor
         const dot = document.querySelector('.cursor-dot');
         const outline = document.querySelector('.cursor-outline');
 
         window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
             dot.style.opacity = '1';
             outline.style.opacity = '1';
-
-            dot.style.left = `${posX}px`;
-            dot.style.top = `${posY}px`;
-
-            outline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
+            dot.style.left = `${e.clientX}px`;
+            dot.style.top = `${e.clientY}px`;
+            outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
         });
 
-        /* --- 3. 3D Card Tilt Effect --- */
+        // 3D Card Tilt
         const card = document.getElementById('tilt-card');
         if (card) {
             window.addEventListener('mousemove', (e) => {
