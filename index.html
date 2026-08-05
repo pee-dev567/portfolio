@@ -1,636 +1,657 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEON://portfolio — Full Stack Developer</title>
-  <meta name="description" content="Futuristic full stack developer portfolio. Building digital & physical realities with React, Python, Node, IoT and Edge AI." />
+  <title>Portfolio — พอร์ตโฟลิโอเตรียมเข้าศึกษาต่อชั้น ม.4</title>
+  <meta name="description" content="เว็บไซต์แฟ้มสะสมผลงาน (Portfolio) สำหรับสมัครเข้าศึกษาต่อชั้น ม.4 " />
+
+  <!-- Google Fonts: Prompt & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Prompt', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            blueprint: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              800: '#1e40af',
+              900: '#0f172a',
+            },
+            concrete: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              600: '#475569',
+              800: '#1e293b',
+            },
+            safety: {
+              500: '#f97316',
+              600: '#ea580c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --bg-deep: #0B0F19;
-      --bg-panel: rgba(255, 255, 255, 0.04);
-      --cyan: #00F0FF;
-      --purple: #B026FF;
-      --neon: #39FF14;
-      --text-main: #E6F1FF;
-      --text-dim: #7B8CA8;
-      --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-    }
-
-    html { scroll-behavior: smooth; }
     body {
-      background: var(--bg-deep);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      overflow-x: hidden;
+      font-family: 'Prompt', sans-serif;
+      background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.14), transparent 18%),
+                  radial-gradient(circle at bottom right, rgba(251, 146, 60, 0.12), transparent 20%),
+                  #050814;
+      color: #e2e8f0;
     }
-    ::selection { background: rgba(0, 240, 255, 0.25); color: #fff; }
 
-    /* ---------- ambient background layers ---------- */
-    .bg-fx { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
-    .bg-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(0, 240, 255, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 240, 255, 0.045) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 100%);
+    .blueprint-grid {
+      background-image: linear-gradient(to right, rgba(148, 163, 184, 0.10) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(148, 163, 184, 0.10) 1px, transparent 1px),
+                        radial-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+      background-size: 38px 38px, 38px 38px;
     }
-    .bg-aura {
+
+    .math-symbol {
+      position: absolute;
+      font-weight: 800;
+      opacity: 0.22;
+      letter-spacing: -0.05em;
+    }
+
+    .math-line {
+      position: absolute;
+      border-top: 1px dashed rgba(56, 189, 248, 0.35);
+      border-bottom: 1px dashed rgba(248, 113, 20, 0.25);
+    }
+
+    .hero-card,
+    .project-card {
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      will-change: transform;
+    }
+    .hero-card:hover,
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 28px 64px -26px rgba(15, 23, 42, 0.28);
+      border-color: rgba(148, 163, 184, 0.45);
+    }
+    .project-card:hover .project-tag {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -18px rgba(15, 23, 42, 0.18);
+    }
+    .project-tag {
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .project-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      min-height: 11rem;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.08));
+    }
+    .project-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .project-card:hover .project-image-wrap img {
+      transform: scale(1.05);
+    }
+
+    .project-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .feature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.22;
-    }
-    .bg-aura.cyan   { width: 520px; height: 520px; top: -140px; right: -120px; background: var(--cyan); }
-    .bg-aura.purple { width: 460px; height: 460px; top: 40%; left: -160px; background: var(--purple); }
-    .scanlines {
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 3px);
-      mix-blend-mode: overlay;
+      filter: blur(48px);
+      opacity: 0.65;
+      pointer-events: none;
     }
 
-    /* ---------- typography helpers ---------- */
-    .mono { font-family: var(--font-mono); }
-    .section-tag {
-      font-family: var(--font-mono);
-      letter-spacing: 0.2em;
-      font-size: 0.72rem;
-      color: var(--cyan);
-      text-transform: uppercase;
+    .float-animate {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
     }
 
-    /* ---------- glass ---------- */
-    .glass {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1rem;
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    @supports not (backdrop-filter: blur(14px)) {
-      .glass { background: rgba(11, 15, 25, 0.92); }
-    }
-
-    /* ---------- glow / hover ---------- */
-    .card-hover { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
-    .card-hover:hover {
-      transform: translateY(-6px);
-      border-color: rgba(0, 240, 255, 0.55);
-      box-shadow: 0 0 26px rgba(0, 240, 255, 0.22), 0 0 70px rgba(176, 38, 255, 0.14);
-    }
-
-    .btn-primary {
-      font-family: var(--font-mono);
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid rgba(0, 240, 255, 0.55);
-      color: var(--cyan);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.28), inset 0 0 14px rgba(0, 240, 255, 0.08);
-      transition: box-shadow .2s ease, background .2s ease, transform .2s ease;
-    }
-    .btn-primary:hover {
-      background: rgba(0, 240, 255, 0.16);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.55), 0 0 90px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.15);
-    }
-    .btn-primary:active { transform: scale(0.98); }
-
-    .btn-ghost {
-      font-family: var(--font-mono);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: var(--text-dim);
-      transition: all .2s ease;
-    }
-    .btn-ghost:hover {
-      border-color: var(--purple);
-      color: var(--text-main);
-      box-shadow: 0 0 22px rgba(176, 38, 255, 0.4);
-    }
-
-    /* ---------- nav ---------- */
-    .nav-link {
-      font-family: var(--font-mono);
-      letter-spacing: 0.12em;
-      color: var(--text-dim);
-      transition: color .2s ease, text-shadow .2s ease;
-    }
-    .nav-link:hover {
-      color: var(--cyan);
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
-    }
-
-    /* ---------- tech badges ---------- */
-    .badge {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.03);
-      transition: border-color .2s ease, box-shadow .2s ease, color .2s ease;
-    }
-    .badge:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 12px rgba(0, 240, 255, 0.35); }
-
-    /* ---------- terminal ---------- */
-    .terminal {
-      font-family: var(--font-mono);
-      background: rgba(8, 12, 22, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0, 240, 255, 0.25);
-      border-radius: 0.9rem;
-      box-shadow: 0 0 34px rgba(0, 240, 255, 0.16), 0 20px 60px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-    }
-    .terminal-bar {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.7rem 1rem;
-      background: rgba(255, 255, 255, 0.04);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    }
-    .t-dot { width: 11px; height: 11px; border-radius: 50%; }
-    .t-line { min-height: 1.5rem; line-height: 1.5rem; }
-    .t-prompt { color: var(--cyan); }
-    .t-cmd { color: var(--text-main); }
-    .t-out { color: var(--text-dim); }
-    .t-cursor {
-      display: inline-block; width: 0.6em; height: 1.15em;
-      background: var(--cyan); vertical-align: text-bottom;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.9);
-      animation: blink 1s steps(1) infinite;
-    }
-    @keyframes blink { 50% { opacity: 0; } }
-
-    /* ---------- status dot ---------- */
-    .dot-live { width: 8px; height: 8px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 8px var(--neon); animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
-
-    /* ---------- project art placeholder ---------- */
-    .proj-art {
-      position: relative;
-      height: 10rem;
-      border-radius: 0.75rem;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .proj-art .grid-lines {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(0,240,255,0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,240,255,0.12) 1px, transparent 1px);
-      background-size: 22px 22px;
-    }
-    .proj-art .emblem {
-      position: absolute; inset: 0;
-      display: grid; place-items: center;
-      font-family: var(--font-mono);
-      font-size: 2.2rem;
-      color: rgba(255, 255, 255, 0.75);
-      text-shadow: 0 0 18px rgba(0,240,255,0.6);
-    }
-    .proj-art.grad-cyan { background: linear-gradient(135deg, rgba(0,240,255,0.28), rgba(11,15,25,0.4) 60%); }
-    .proj-art.grad-purple { background: linear-gradient(135deg, rgba(176,38,255,0.3), rgba(11,15,25,0.4) 60%); }
-    .proj-art.grad-mixed { background: linear-gradient(135deg, rgba(0,240,255,0.2) 0%, rgba(176,38,255,0.26) 100%); }
-
-    /* ---------- contact input ---------- */
-    .cmd-input {
-      font-family: var(--font-mono);
-      background: transparent;
-      color: var(--text-main);
-      caret-color: var(--cyan);
-      outline: none;
-      width: 100%;
-    }
-    .cmd-input::placeholder { color: rgba(123, 140, 168, 0.7); }
-
-    /* ---------- scroll reveal ---------- */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in-view { opacity: 1; transform: none; }
-    .reveal[data-delay="1"] { transition-delay: .12s; }
-    .reveal[data-delay="2"] { transition-delay: .24s; }
-
-    /* ---------- reduced motion ---------- */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .t-cursor, .dot-live { animation: none; }
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .card-hover { transition: none; }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-orange-500 selection:text-white">
 
-  <!-- ambient background -->
-  <div class="bg-fx" aria-hidden="true">
-    <div class="bg-grid"></div>
-    <div class="bg-aura cyan"></div>
-    <div class="bg-aura purple"></div>
-    <div class="scanlines"></div>
-  </div>
+  <!-- ================= 4.1 HEADER & NAVIGATION ================= -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 text-white">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo / Brand -->
+      <a href="#hero" class="flex items-center gap-2 font-bold text-lg tracking-wide group">
+        <span class="w-8 h-8 rounded bg-orange-500 text-slate-900 flex items-center justify-center font-mono font-extrabold group-hover:bg-orange-400 transition">CE</span>
+        <span class="text-slate-100 font-medium">CIVIL<span class="text-orange-500">.PORTFOLIO</span></span>
+      </a>
 
-  <!-- ================= NAV ================= -->
-  <header class="fixed top-0 inset-x-0 z-50">
-    <nav class="mx-auto max-w-6xl px-5">
-      <div class="flex items-center justify-between py-4">
-        <a href="#home" class="mono text-sm font-bold tracking-widest text-white hover:text-cyan-300 transition">
-          <span class="text-cyan-400">&lt;</span>DEV<span class="text-fuchsia-400">/</span><span class="text-cyan-400">&gt;</span>__
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#about" class="hover:text-orange-400 transition">แนะนำตัว</a>
+        <a href="#skills" class="hover:text-orange-400 transition">ทักษะวิชาการ</a>
+        <a href="#projects" class="hover:text-orange-400 transition">ผลงาน & กิจกรรม</a>
+        <a href="#contact" class="hover:text-orange-400 transition">ติดต่อ</a>
+        <a href="#projects" class="bg-orange-500 hover:bg-orange-600 text-slate-900 px-4 py-2 rounded-lg font-semibold transition shadow-sm">
+          ดูผลงาน
         </a>
-
-        <div class="hidden md:flex items-center gap-7">
-          <a href="#home"        class="nav-link text-xs">01 · HOME</a>
-          <a href="arsenal.html" class="nav-link text-xs">02 · ARSENAL</a>
-          <a href="projects.html" class="nav-link text-xs">03 · PROJECTS</a>
-          <a href="contact.html" class="nav-link text-xs">04 · CONTACT</a>
-          <a href="support.html" class="nav-link text-xs">05 · SUPPORT</a>
-          <a href="contact.html" class="btn-ghost rounded-lg px-4 py-2 text-xs">HIRE_ME</a>
-        </div>
-
-        <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
-                class="md:hidden text-cyan-300 p-2">
-          <svg id="nav-open-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-          <svg id="nav-close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
       </div>
 
-      <div id="mobile-menu" class="hidden md:hidden glass mb-4 px-5 py-4">
-        <div class="flex flex-col gap-4">
-          <a href="#home"        class="nav-link text-sm">01 · HOME</a>
-          <a href="arsenal.html" class="nav-link text-sm">02 · ARSENAL</a>
-          <a href="projects.html" class="nav-link text-sm">03 · PROJECTS</a>
-          <a href="contact.html" class="nav-link text-sm">04 · CONTACT</a>
-          <a href="support.html" class="nav-link text-sm">05 · SUPPORT</a>
-        </div>
-      </div>
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2" aria-label="Toggle Menu">
+        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
     </nav>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col gap-4 text-sm font-medium text-slate-300">
+      <a href="#about" class="mobile-link py-1 hover:text-orange-400">แนะนำตัว</a>
+      <a href="#skills" class="mobile-link py-1 hover:text-orange-400">ทักษะวิชาการ</a>
+      <a href="#projects" class="mobile-link py-1 hover:text-orange-400">ผลงาน & กิจกรรม</a>
+      <a href="#contact" class="mobile-link py-1 hover:text-orange-400">ติดต่อ</a>
+    </div>
   </header>
 
-  <main class="relative">
-    <!-- ================= HERO ================= -->
-    <section id="home" class="min-h-screen flex items-center pt-28 pb-16 scroll-mt-20">
-      <div class="mx-auto max-w-6xl px-5 grid lg:grid-cols-2 gap-14 items-center w-full">
-        <div>
-          <p class="section-tag reveal">// full-stack engineer · edge ai · iot</p>
-          <h1 class="reveal mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight" data-delay="1">
-            I BUILD <span class="text-cyan-400" style="text-shadow:0 0 24px rgba(0,240,255,0.6)">DIGITAL</span><br />
-            &amp; PHYSICAL <span class="text-fuchsia-400" style="text-shadow:0 0 24px rgba(176,38,255,0.6)">REALITIES</span>
+  <main class="relative pt-16">
+
+    <!-- ================= 4.2 HERO SECTION ================= -->
+    <section id="hero" class="relative min-h-[90vh] flex items-center bg-transparent text-white blueprint-grid overflow-hidden">
+      <!-- Math Decorations -->
+      <div class="absolute top-14 left-10 text-[5rem] text-sky-400 math-symbol">Σ</div>
+      <div class="absolute top-24 right-10 text-[3.5rem] text-orange-400 math-symbol">π</div>
+      <div class="absolute bottom-24 left-1/2 w-72 math-line"></div>
+      <div class="absolute top-32 left-1/3 h-12 w-12 rounded-full border border-sky-400/30"></div>
+      <div class="absolute bottom-10 right-1/3 h-16 w-16 rounded-full border border-orange-400/20"></div>
+      <div class="absolute top-1/2 left-10 h-0.5 w-40 bg-sky-400/10"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full grid lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Headline & Subheadline -->
+        <div class="lg:col-span-7 z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-400/20 text-sky-200 text-xs font-semibold mb-6">
+            <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+            ผู้สมัครสายคณิตศาสตร์-วิศวกรรมโยธา ม.4
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+            BUILDING THE <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-300">FUTURE</span><br />
+            <span class="text-orange-500">เด็กชาย ศิริณพงศ์ อำไพพันธุ์</span>
           </h1>
-          <p class="reveal mt-6 max-w-lg text-base sm:text-lg text-slate-400 leading-relaxed" data-delay="2">
-            Full stack developer engineering systems from the browser to the
-            circuit board — React UIs, Python backends, and edge AI running on
-            Raspberry Pi and ESP32.
+
+          <p class="mt-6 text-lg text-slate-300 leading-relaxed font-light max-w-2xl">
+            "มุ่งมั่นสร้างรากฐานที่มั่นคงด้วยตรรกะคณิตศาสตร์ และออกแบบโครงสร้างอย่างเป็นระบบ เพื่อก้าวสู่เส้นทางวิศวกรรมโยธาในอนาคต"
           </p>
-          <div class="reveal mt-9 flex flex-wrap gap-4" data-delay="2">
-            <a href="projects.html" class="btn-primary rounded-xl px-6 py-3.5 text-sm">
-              <span aria-hidden="true">▸</span> Execute: View_Projects()
+
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#projects" class="bg-orange-500 hover:bg-orange-600 text-slate-900 font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-orange-500/20 flex items-center gap-2">
+              ดูผลงานของผม
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </a>
-            <a href="contact.html" class="btn-ghost rounded-xl px-6 py-3.5 text-sm">Init_Contact()</a>
+            <a href="#about" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-6 py-3.5 rounded-xl font-medium transition">
+              เกี่ยวกับตัวผม
+            </a>
           </div>
         </div>
 
-        <div class="reveal" data-delay="1">
-          <div class="terminal">
-            <div class="terminal-bar">
-              <span class="t-dot" style="background:#FF5F57"></span>
-              <span class="t-dot" style="background:#FEBC2E"></span>
-              <span class="t-dot" style="background:#28C840"></span>
-              <span class="ml-3 text-xs text-slate-400">pi@portfolio:~$</span>
-              <span class="ml-auto flex items-center gap-2 text-[10px] text-slate-400">
-                <span class="dot-live"></span> ONLINE
-              </span>
-            </div>
-            <div id="terminal-body" class="p-5 text-[13px] sm:text-sm leading-7">
-              <p class="t-line">
-                <span class="t-prompt">➜</span>
-                <span class="t-cmd"> init --project portfolio</span>
-                <span class="t-out">  (done)</span>
-              </p>
-              <!-- typed lines injected here -->
-              <p class="t-line"><span class="t-cursor"></span></p>
-            </div>
+        <div class="lg:col-span-5 relative flex justify-center z-10">
+          <div class="relative w-full max-w-md overflow-hidden rounded-[2rem] bg-slate-950/90 border border-slate-700 hero-card shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="Portrait of a student" class="w-full h-full object-cover" />
+            <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-950/95 to-transparent">
+              <p class="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">Profile Snapshot</p>
+              <h3 class="text-2xl font-semibold text-white">นักเรียนสายคณิตศาสตร์</h3>
+              <p class="mt-2 text-slate-300 text-sm leading-relaxed">นำความคิดทางคณิตศาสตร์มาผสานกับโครงสร้างวิศวกรรม เพื่อออกแบบผลงานที่มีเหตุผลและแข็งแกร่ง</p>
+          </div>
+
+          <div class="absolute -right-8 top-1/2 hidden xl:block float-animate">
+            <div class="blob w-24 h-24 bg-sky-500/20"></div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- ================= TECH STACK ================= -->
-    <section id="arsenal" class="py-24 scroll-mt-20">
-      <div class="mx-auto max-w-6xl px-5">
-        <p class="section-tag reveal">node://arsenal</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-bold tracking-tight" data-delay="1">
-          THE <span class="text-cyan-400">ARSENAL</span>
-        </h2>
-        <p class="reveal mt-3 text-slate-400" data-delay="1">Technologies wired into the stack.</p>
-
-        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Frontend -->
-          <div class="glass card-hover p-7 reveal">
-            <div class="flex items-center justify-between">
-              <h3 class="mono text-sm font-bold tracking-widest text-white">FRONTEND</h3>
-              <span class="mono text-2xl text-cyan-400" style="text-shadow:0 0 14px rgba(0,240,255,0.8)">&lt;/&gt;</span>
-            </div>
-            <div class="mt-5 flex flex-wrap gap-2">
-              <span class="badge">React</span><span class="badge">TypeScript</span><span class="badge">Tailwind</span>
-              <span class="badge">Vite</span><span class="badge">Next.js</span><span class="badge">PWA</span>
-            </div>
-            <p class="mt-5 text-sm text-slate-400 leading-relaxed">Interactive, responsive interfaces with a neon-grade finish.</p>
-          </div>
-
-          <!-- Backend -->
-          <div class="glass card-hover p-7 reveal" data-delay="1">
-            <div class="flex items-center justify-between">
-              <h3 class="mono text-sm font-bold tracking-widest text-white">BACKEND</h3>
-              <span class="mono text-2xl text-fuchsia-400" style="text-shadow:0 0 14px rgba(176,38,255,0.8)">{ }</span>
-            </div>
-            <div class="mt-5 flex flex-wrap gap-2">
-              <span class="badge">Python</span><span class="badge">Node.js</span><span class="badge">FastAPI</span>
-              <span class="badge">PostgreSQL</span><span class="badge">Redis</span><span class="badge">Docker</span>
-            </div>
-            <p class="mt-5 text-sm text-slate-400 leading-relaxed">Resilient APIs and data pipelines powering real-time systems.</p>
-          </div>
-
-          <!-- Infrastructure / Hardware -->
-          <div class="glass card-hover p-7 reveal" data-delay="2">
-            <div class="flex items-center justify-between">
-              <h3 class="mono text-sm font-bold tracking-widest text-white">HARDWARE</h3>
-              <span class="mono text-2xl text-green-400" style="text-shadow:0 0 14px rgba(57,255,20,0.7)">__</span>
-            </div>
-            <div class="mt-5 flex flex-wrap gap-2">
-              <span class="badge">Linux</span><span class="badge">Raspberry Pi</span><span class="badge">ESP32</span>
-              <span class="badge">IoT</span><span class="badge">MQTT</span><span class="badge">Edge AI</span>
-            </div>
-            <p class="mt-5 text-sm text-slate-400 leading-relaxed">From cloud clusters down to bare-metal microcontrollers.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= PROJECTS ================= -->
-    <section id="projects" class="py-24 scroll-mt-20">
-      <div class="mx-auto max-w-6xl px-5">
-        <p class="section-tag reveal">repo://featured</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-bold tracking-tight" data-delay="1">
-          FEATURED <span class="text-cyan-400">PROJECTS</span>
-        </h2>
-        <p class="reveal mt-3 text-slate-400" data-delay="1">Selected deployments from the lab.</p>
-
-        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Project 1 -->
-          <article class="glass card-hover p-5 flex flex-col reveal">
-            <div class="proj-art grad-cyan" aria-hidden="true">
-              <div class="grid-lines"></div>
-              <span class="emblem">◈</span>
-            </div>
-            <div class="mt-5 flex-1 flex flex-col">
-              <h3 class="text-lg font-bold">Edge Vision Hub</h3>
-              <p class="mt-2 text-sm text-slate-400 leading-relaxed">Realtime object detection served from a Raspberry Pi cluster to a live dashboard.</p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="badge">React</span><span class="badge">Python</span><span class="badge">Edge AI</span>
+    <!-- ================= 4.3 ABOUT ME ================= -->
+    <section id="about" class="py-20 bg-[#09111e]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Image / Diagram -->
+          <div class="lg:col-span-5 reveal">
+            <div class="p-8 rounded-2xl bg-slate-950/95 border border-slate-800 relative shadow-[0_20px_80px_-50px_rgba(0,0,0,0.5)]">
+              <div class="absolute top-4 left-4 text-xs font-mono text-slate-400">// MOTIVATION</div>
+              <div class="mt-4 space-y-4">
+                <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.7)] flex items-start gap-4">
+                  <div class="p-2.5 bg-blue-950 text-blue-300 rounded-lg text-xl">🏛️</div>
+                  <div>
+                    <h4 class="font-bold text-slate-100 text-sm">ความหลงใหลในโครงสร้าง</h4>
+                    <p class="text-xs text-slate-400 mt-1">ชอบสังเกตและศึกษาการถ่ายน้ำหนักของสะพาน อาคาร และสิ่งก่อสร้างรอบตัว</p>
+                  </div>
+                </div>
+                <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.7)] flex items-start gap-4">
+                  <div class="p-2.5 bg-orange-950 text-orange-300 rounded-lg text-xl">📐</div>
+                  <div>
+                    <h4 class="font-bold text-slate-100 text-sm">การคำนวณและวาดแบบ</h4>
+                    <p class="text-xs text-slate-400 mt-1">มีความสุขกับการแก้โจทย์ฟิสิกส์ การคำนวณแรง และเริ่มฝึกฝนซอฟต์แวร์ออกแบบ 3D</p>
+                  </div>
+                </div>
+                <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.7)] flex items-start gap-4">
+                  <div class="p-2.5 bg-slate-800 text-slate-100 rounded-lg text-xl">🎯</div>
+                  <div>
+                    <h4 class="font-bold text-slate-100 text-sm">เป้าหมายชัดเจน</h4>
+                    <p class="text-xs text-slate-400 mt-1">มุ่งมั่นเข้าศึกษาแผนเตรียมวิศวกรรมศาสตร์ โยธา เพื่อเป็นวิศวกรที่มีคุณภาพในอนาคต</p>
+                  </div>
+                </div>
               </div>
-              <a href="#" class="btn-ghost rounded-lg mt-6 text-center px-4 py-2.5 text-xs w-full">⌘ Source Code</a>
+            </div>
+          </div>
+
+          <!-- Text Bio -->
+          <div class="lg:col-span-7 reveal">
+            <p class="text-xs font-bold uppercase tracking-wider text-orange-500">About Me</p>
+            <h2 class="mt-2 text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+              เกี่ยวกับตัวผม & แรงบันดาลใจ
+            </h2>
+            
+            <p class="mt-6 text-slate-300 leading-relaxed">
+              สวัสดีครับผม <strong>เด็กชาย ศิริณพงศ์ อำไพพันธุ์</strong> กำลังศึกษาอยู่ชั้นมัธยมศึกษาปีที่ 3 โรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย พิษณุโลก ผมมีความสนใจและความหลงใหลในงานวิศวกรรมโยธามาตั้งแต่เด็ก เริ่มจากการชอบต่อบล็อกสร้างโครงสร้าง จนพัฒนามาสู่ความสนใจในวิชาฟิสิกส์และคณิตศาสตร์อย่างจริงจัง
+            </p>
+            <p class="mt-4 text-slate-300 leading-relaxed">
+              ผมเชื่อว่า "วิศวกรรมโยธา" คือรากฐานสำคัญของการพัฒนาประเทศ ทั้งถนน สะพาน อาคาร และระบบสาธารณูปโภค การได้เข้าศึกษาในแผนการเรียนเตรียมวิศวกรรมศาสตร์ (วิศวกรรมโยธา) จะเป็นก้าวสำคัญที่ช่วยเติมเต็มความรู้ทั้งทฤษฎีและปฏิบัติ เพื่อเตรียมความพร้อมสู่การเป็นวิศวกรโยธาในอนาคตครับ
+            </p>
+
+            <div class="mt-8 grid sm:grid-cols-2 gap-4 border-t border-slate-800 pt-6">
+              <div>
+                <span class="text-xs text-slate-500 block font-mono">SCHOOL</span>
+                <span class="font-semibold text-slate-100 text-sm">โรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย พิษณุโลก</span>
+              </div>
+              <div>
+                <span class="text-xs text-slate-500 block font-mono">TARGET STUDY</span>
+                <span class="font-semibold text-cyan-300 text-sm">เตรียมวิศวกรรมโยธา (ม.4)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 4.4 SKILLS ================= -->
+    <section id="skills" class="py-20 bg-[#09111e] border-y border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto reveal">
+          <p class="text-xs font-bold uppercase tracking-wider text-orange-500">Skills & Knowledge</p>
+          <h2 class="mt-2 text-3xl font-extrabold text-white tracking-tight">
+            ทักษะและความสามารถ
+          </h2>
+          <p class="mt-3 text-slate-300 text-sm">
+            ความรู้พื้นฐานด้านวิชาการ ทักษะปฏิบัติการวิศวกรรม และ Soft Skills ที่พร้อมสำหรับการเรียนต่อ
+          </p>
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-3 gap-8">
+          
+          <!-- Skill Group 1: Academic -->
+          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm reveal">
+            <div class="w-10 h-10 rounded-lg bg-blue-900 text-white flex items-center justify-center font-bold text-lg mb-6">
+              📐
+            </div>
+            <h3 class="font-bold text-white text-lg mb-4">วิชาการ (Academic)</h3>
+            
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-300">คณิตศาสตร์ (Mathematics)</span>
+                  <span class="text-blue-300 font-mono">85%</span>
+                </div>
+                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
+                  <div class="bg-blue-600 h-full rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-300">ฟิสิกส์พื้นฐาน (Physics & Statics)</span>
+                  <span class="text-blue-300 font-mono">80%</span>
+                </div>
+                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
+                  <div class="bg-blue-600 h-full rounded-full" style="width: 80%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-300">วิทยาศาสตร์และคำนวณ</span>
+                  <span class="text-blue-300 font-mono">88%</span>
+                </div>
+                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
+                  <div class="bg-blue-600 h-full rounded-full" style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill Group 2: Practical & Drafting -->
+          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm reveal" data-delay="1">
+            <div class="w-10 h-10 rounded-lg bg-orange-500 text-slate-900 flex items-center justify-center font-bold text-lg mb-6">
+              🖥️
+            </div>
+            <h3 class="font-bold text-white text-lg mb-4">การเขียนแบบ & เครื่องมือ</h3>
+            
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-300">การเขียนแบบมือ (Manual Drafting)</span>
+                  <span class="text-orange-300 font-mono">75%</span>
+                </div>
+                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
+                  <div class="bg-orange-500 h-full rounded-full" style="width: 75%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-300">SketchUp 3D Modeling</span>
+                  <span class="text-orange-300 font-mono">70%</span>
+                </div>
+                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
+                  <div class="bg-orange-500 h-full rounded-full" style="width: 70%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-300">AutoCAD พื้นฐาน</span>
+                  <span class="text-orange-300 font-mono">60%</span>
+                </div>
+                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
+                  <div class="bg-orange-500 h-full rounded-full" style="width: 60%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill Group 3: Soft Skills -->
+          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm reveal" data-delay="2">
+            <div class="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold text-lg mb-6">
+              🤝
+            </div>
+            <h3 class="font-bold text-white text-lg mb-4">ทักษะทั่วไป (Soft Skills)</h3>
+            
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">การแก้ปัญหา (Problem Solving)</span>
+              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">การทำงานเป็นทีม (Teamwork)</span>
+              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">ความคิดสร้างสรรค์เชิงวิศวกรรม</span>
+              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">ความละเอียดรอบคอบ (Attention to Detail)</span>
+              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">การสื่อสารและนำเสนอ</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 4.5 PROJECTS / ACTIVITIES (10 ITEMS) ================= -->
+    <section id="projects" class="py-24 bg-[#09111e]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wider text-orange-400">Portfolio Highlights</p>
+            <h2 class="mt-2 text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+              ผลงานและกิจกรรมที่โดดเด่น
+            </h2>
+          </div>
+          <p class="text-sm text-slate-300 max-w-xl">
+            งานออกแบบ โครงงาน และกิจกรรมนอกห้องเรียนที่สะท้อนความมุ่งมั่นในการเรียนต่อวิศวกรรมโยธา พร้อมภาพประกอบจริงที่สอดคล้องกับแต่ละหัวข้อ
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <article class="project-card p-5 rounded-[2rem] bg-slate-950/90 border border-slate-800 shadow-sm flex flex-col justify-between overflow-hidden">
+            <div>
+              <div class="project-image-wrap">
+                <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e63?auto=format&fit=crop&w=900&q=80" alt="สะพานไม้ไอติม" />
+                <span class="project-tag text-orange-300">STRUCTURE</span>
+              </div>
+              <div class="mt-5">
+                <h3 class="font-bold text-white text-lg">โครงงานสะพานไม้ไอติมรับน้ำหนัก</h3>
+                <p class="mt-3 text-sm text-slate-300 leading-relaxed">
+                  ออกแบบโครงสร้างทรัสและวิเคราะห์จุดรับแรงเพื่อเพิ่มความมั่นคงของสะพานไม้ไอติมที่รับน้ำหนักได้สูงสุดอย่างมีประสิทธิภาพ
+                </p>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
+              บทบาท: หัวหน้าทีมออกแบบโครงสร้าง
             </div>
           </article>
 
-          <!-- Project 2 -->
-          <article class="glass card-hover p-5 flex flex-col reveal" data-delay="1">
-            <div class="proj-art grad-purple" aria-hidden="true">
-              <div class="grid-lines"></div>
-              <span class="emblem">◉</span>
-            </div>
-            <div class="mt-5 flex-1 flex flex-col">
-              <h3 class="text-lg font-bold">Neon Mesh API</h3>
-              <p class="mt-2 text-sm text-slate-400 leading-relaxed">High-throughput API gateway handling millions of events with typed streaming.</p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="badge">Node.js</span><span class="badge">FastAPI</span><span class="badge">PostgreSQL</span>
+          <article class="project-card p-5 rounded-[2rem] bg-slate-950/90 border border-slate-800 shadow-sm flex flex-col justify-between overflow-hidden">
+            <div>
+              <div class="project-image-wrap">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="โมเดล SketchUp" />
+                <span class="project-tag text-sky-300">CAD / 3D DESIGN</span>
               </div>
-              <a href="#" class="btn-ghost rounded-lg mt-6 text-center px-4 py-2.5 text-xs w-full">⌘ Source Code</a>
+              <div class="mt-5">
+                <h3 class="font-bold text-white text-lg">แบบบ้านพักอาศัย 3D ด้วย SketchUp</h3>
+                <p class="mt-3 text-sm text-slate-300 leading-relaxed">
+                  ฝึกเขียนแบบและกำหนดเสาโครงสร้าง พร้อมจัดสัดส่วนพื้นที่ในอาคารด้วยซอฟต์แวร์ออกแบบสามมิติ
+                </p>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
+              เครื่องมือ: SketchUp Free
             </div>
           </article>
 
-          <!-- Project 3 -->
-          <article class="glass card-hover p-5 flex flex-col reveal" data-delay="2">
-            <div class="proj-art grad-mixed" aria-hidden="true">
-              <div class="grid-lines"></div>
-              <span class="emblem">⬡</span>
-            </div>
-            <div class="mt-5 flex-1 flex flex-col">
-              <h3 class="text-lg font-bold">PulseSensor IoT</h3>
-              <p class="mt-2 text-sm text-slate-400 leading-relaxed">ESP32 sensor mesh streaming telemetry over MQTT to a live monitoring console.</p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="badge">ESP32</span><span class="badge">MQTT</span><span class="badge">Linux</span>
+          <article class="project-card p-5 rounded-[2rem] bg-slate-950/90 border border-slate-800 shadow-sm flex flex-col justify-between overflow-hidden">
+            <div>
+              <div class="project-image-wrap">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=900&q=80" alt="ค่าย STEM" />
+                <span class="project-tag text-emerald-300">CAMP & WORKSHOP</span>
               </div>
-              <a href="#" class="btn-ghost rounded-lg mt-6 text-center px-4 py-2.5 text-xs w-full">⌘ Source Code</a>
+              <div class="mt-5">
+                <h3 class="font-bold text-white text-lg">ค่าย STEM Engineering Junior</h3>
+                <p class="mt-3 text-sm text-slate-300 leading-relaxed">
+                  ร่วมกิจกรรมสร้างสรรค์และทดลองจำลองแผ่นดินไหว เพื่อฝึกคิดเชิงวิศวกรรมและแก้ปัญหาเชิงระบบ
+                </p>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
+              รับใบประกาศนียบัตรผ่านการอบรม
             </div>
           </article>
+
         </div>
+
       </div>
     </section>
 
-    <!-- ================= CONTACT ================= -->
-    <section id="contact" class="py-24 scroll-mt-20">
-      <div class="mx-auto max-w-3xl px-5">
-        <p class="section-tag text-center reveal">net://contact_node</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-center" data-delay="1">
-          OPEN A <span class="text-cyan-400">CHANNEL</span>
+    <!-- ================= 4.6 CONTACT & FOOTER ================= -->
+    <section id="contact" class="py-20 bg-[#08101e] text-white border-t border-slate-800">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        
+        <p class="text-xs font-bold uppercase tracking-wider text-orange-500">Get In Touch</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          ช่องทางการติดต่อ
         </h2>
-        <p class="reveal mt-3 text-center text-slate-400" data-delay="1">Send a message to the server.</p>
+        <p class="mt-3 text-slate-400 text-sm">
+          หากคณะกรรมการมีข้อสงสัยเพิ่มเติม สามารถติดต่อผมได้ผ่านช่องทางด้านล่างนี้ครับ
+        </p>
 
-        <form id="contact-form" class="glass mt-12 p-6 sm:p-8 reveal" data-delay="1" novalidate>
-          <div class="mono text-xs text-slate-400">user@client:~$ send_message --to developer</div>
-          <div class="mt-4">
-            <label for="email" class="mono text-xs text-slate-400">from:</label>
-            <div class="mt-2 flex items-center gap-2 border-b border-white/15 pb-2 focus-within:border-cyan-400 transition-colors">
-              <span class="mono text-cyan-400">✉</span>
-              <input id="email" name="email" type="email" required placeholder="you@domain.com"
-                     class="cmd-input text-sm bg-transparent" />
+        <div class="mt-10 grid sm:grid-cols-2 gap-6 text-left max-w-2xl mx-auto">
+          
+          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center gap-4">
+            <div class="p-3 bg-orange-500/10 text-orange-400 rounded-xl text-2xl">
+              ✉️
+            </div>
+            <div>
+              <span class="text-xs font-mono text-slate-400 block">EMAIL</span>
+              <a href="mailto:student.civil@example.com" class="font-medium text-slate-200 hover:text-orange-400 text-sm transition">
+                student.civil@example.com
+              </a>
             </div>
           </div>
-          <div class="mt-6">
-            <label for="message" class="mono text-xs text-slate-400">body:</label>
-            <div class="mt-2 flex items-start gap-2 border-b border-white/15 pb-2 focus-within:border-cyan-400 transition-colors">
-              <span class="mono text-cyan-400">$</span>
-              <textarea id="message" name="message" required rows="3" placeholder="transmit message to the server..."
-                        class="cmd-input text-sm resize-none bg-transparent"></textarea>
+
+          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center gap-4">
+            <div class="p-3 bg-blue-500/10 text-blue-400 rounded-xl text-2xl">
+              📞
+            </div>
+            <div>
+              <span class="text-xs font-mono text-slate-400 block">PHONE</span>
+              <a href="tel:0812345678" class="font-medium text-slate-200 hover:text-orange-400 text-sm transition">
+                081-234-5678
+              </a>
             </div>
           </div>
-          <div class="mt-7 flex flex-wrap items-center gap-4">
-            <button type="submit" class="btn-primary rounded-xl px-6 py-3 text-sm">
-              <span aria-hidden="true">▲</span> Transmit_Message()
-            </button>
-            <p id="form-status" class="mono text-xs text-slate-400" role="status" aria-live="polite"></p>
-          </div>
-        </form>
+
+        </div>
+
+        <!-- Social Links -->
+        <div class="mt-10 flex justify-center gap-6">
+          <a href="#" class="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition" aria-label="Facebook">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+          </a>
+          <a href="#" class="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition" aria-label="Line">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.13 3.5 7.6 8.24 8.35.32.07.76.21.87.49.1.25.07.63.03.88l-.15.89c-.05.28-.22 1.1.97.6 1.18-.5 6.38-3.76 8.7-6.44C21.92 13.78 22 12.18 22 10.5 22 5.82 17.52 2 12 2z"/></svg>
+          </a>
+          <a href="#" class="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition" aria-label="GitHub">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          </a>
+        </div>
+
       </div>
     </section>
+
   </main>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="border-t border-white/5 py-8">
-    <div class="mx-auto max-w-6xl px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="mono text-xs text-slate-500">© 2026 <span class="text-slate-300">&lt;DEV/&gt;_</span> — built with HTML · Tailwind · JS</p>
-      <div class="flex items-center gap-5">
-        <a href="#" class="nav-link text-xs" aria-label="GitHub">GitHub</a>
-        <a href="#" class="nav-link text-xs" aria-label="LinkedIn">LinkedIn</a>
-        <a href="#" class="nav-link text-xs" aria-label="Email">Email</a>
-      </div>
+  <!-- Footer -->
+  <footer class="bg-slate-950 py-6 border-t border-slate-800 text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>Copyright © 2026 [นาย นามสมมุติ มุ่งมั่นดี] — Civil Engineering Portfolio. All rights reserved.</p>
     </div>
   </footer>
 
-  <script defer>
+  <!-- ================= JAVASCRIPT (VANILLA JS) ================= -->
+  <script>
     (function () {
       "use strict";
 
-      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // 1. Mobile Menu Toggle Logic
+      var menuBtn = document.getElementById("mobile-menu-btn");
+      var mobileMenu = document.getElementById("mobile-menu");
+      var iconOpen = document.getElementById("menu-icon-open");
+      var iconClose = document.getElementById("menu-icon-close");
 
-      /* ---------------- mobile nav ---------------- */
-      var toggle = document.getElementById("nav-toggle");
-      var menu = document.getElementById("mobile-menu");
-      var openIcon = document.getElementById("nav-open-icon");
-      var closeIcon = document.getElementById("nav-close-icon");
-
-      function setMenu(open) {
-        if (!menu) return;
-        menu.classList.toggle("hidden", !open);
-        if (toggle) toggle.setAttribute("aria-expanded", String(open));
-        if (openIcon) openIcon.classList.toggle("hidden", open);
-        if (closeIcon) closeIcon.classList.toggle("hidden", !open);
-      }
-
-      if (toggle) {
-        toggle.addEventListener("click", function () {
-          setMenu(menu.classList.contains("hidden"));
-        });
-      }
-      if (menu) {
-        menu.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", function () { setMenu(false); });
-        });
-      }
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && menu && !menu.classList.contains("hidden")) setMenu(false);
-      });
-
-      /* ---------------- terminal typing ---------------- */
-      var body = document.getElementById("terminal-body");
-      var LINES = [
-        "> system initialized...",
-        "> hello, i build digital & physical realities.",
-        "> stack: react · node · python · iot · edge ai",
-        "> status: all systems operational"
-      ];
-
-      function typeSequence() {
-        if (!body || reduceMotion) {
-          renderStatic();
-          return;
-        }
-        var cursorLine = body.querySelector(".t-line:last-child");
-        var i = 0;
-        function nextLine() {
-          if (i >= LINES.length) {
-            if (cursorLine) cursorLine.style.display = "";
-            return;
-          }
-          var p = document.createElement("p");
-          p.className = "t-line";
-          var span = document.createElement("span");
-          span.className = "t-out";
-          p.appendChild(span);
-          if (cursorLine && body.contains(cursorLine)) {
-            body.insertBefore(p, cursorLine);
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", function () {
+          var isHidden = mobileMenu.classList.contains("hidden");
+          if (isHidden) {
+            mobileMenu.classList.remove("hidden");
+            iconOpen.classList.add("hidden");
+            iconClose.classList.remove("hidden");
           } else {
-            body.appendChild(p);
+            mobileMenu.classList.add("hidden");
+            iconOpen.classList.remove("hidden");
+            iconClose.classList.add("hidden");
           }
-          typeChars(span, LINES[i], function () {
-            i++;
-            window.setTimeout(nextLine, 320);
+        });
+
+        // Close menu when clicking links
+        var mobileLinks = document.querySelectorAll(".mobile-link");
+        mobileLinks.forEach(function (link) {
+          link.addEventListener("click", function () {
+            mobileMenu.classList.add("hidden");
+            iconOpen.classList.remove("hidden");
+            iconClose.classList.add("hidden");
           });
-        }
-        window.setTimeout(nextLine, 700);
-      }
-
-      function typeChars(el, text, done) {
-        var j = 0;
-        (function tick() {
-          if (j <= text.length) {
-            el.textContent = text.slice(0, j);
-            j++;
-            window.setTimeout(tick, 42);
-          } else {
-            done();
-          }
-        })();
-      }
-
-      function renderStatic() {
-        if (!body) return;
-        LINES.forEach(function (line) {
-          var p = document.createElement("p");
-          p.className = "t-line";
-          p.innerHTML = '<span class="t-out"></span>';
-          p.querySelector("span").textContent = line;
-          body.appendChild(p);
         });
       }
 
-      typeSequence();
-
-      /* ---------------- scroll reveal ---------------- */
+      // 2. Scroll Reveal Animation Logic
       var reveals = document.querySelectorAll(".reveal");
-      if ("IntersectionObserver" in window && !reduceMotion) {
-        var io = new IntersectionObserver(function (entries) {
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               entry.target.classList.add("in-view");
-              io.unobserve(entry.target);
+              observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.12 });
-        reveals.forEach(function (el) { io.observe(el); });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(function (el) {
+          observer.observe(el);
+        });
       } else {
-        reveals.forEach(function (el) { el.classList.add("in-view"); });
-      }
-
-      /* ---------------- contact form ---------------- */
-      var form = document.getElementById("contact-form");
-      var status = document.getElementById("form-status");
-      if (form) {
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          var email = document.getElementById("email");
-          var message = document.getElementById("message");
-          var emailVal = email ? email.value.trim() : "";
-          var msgVal = message ? message.value.trim() : "";
-
-          if (!emailVal || !msgVal) {
-            setStatus("> error: incomplete transmission", "#FF5F57");
-            return;
-          }
-          if (emailVal.indexOf("@") === -1) {
-            setStatus("> error: invalid address format", "#FF5F57");
-            return;
-          }
-
-          setStatus("> transmitting...", "#00F0FF");
-          window.setTimeout(function () {
-            setStatus("> message received ✓", "#39FF14");
-            if (email) email.value = "";
-            if (message) message.value = "";
-          }, 1200);
+        reveals.forEach(function (el) {
+          el.classList.add("in-view");
         });
       }
 
-      function setStatus(text, color) {
-        if (status) {
-          status.textContent = text;
-          status.style.color = color;
-        }
-      }
     })();
   </script>
 </body>
