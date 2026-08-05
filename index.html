@@ -1,658 +1,1270 @@
 <!DOCTYPE html>
-<html lang="th" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio — พอร์ตโฟลิโอเตรียมเข้าศึกษาต่อชั้น ม.4</title>
-  <meta name="description" content="เว็บไซต์แฟ้มสะสมผลงาน (Portfolio) สำหรับสมัครเข้าศึกษาต่อชั้น ม.4 " />
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ศิริณพงศ์ อำไพพันธุ์ — Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio ของศิริณพงศ์ อำไพพันธุ์ นักเรียนชั้น ม.3 ผู้มุ่งมั่นสู่เส้นทางแพทย์และงานวิจัยทางการแพทย์ สมัครเข้าโครงการ วมว."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Sarabun:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+/* ==========================================================
+   TOKENS
+   ========================================================== */
+:root {
+  --bg: #080b14;
+  --bg-alt: #0d1220;
+  --panel: #10182b;
+  --panel-border: #1f2b45;
+  --blue: #4f8fff;
+  --blue-soft: #274a8a;
+  --cyan: #6ee7f9;
+  --amber: #ffb84d;
+  --text: #e9edf7;
+  --text-muted: #93a0bd;
+  --text-faint: #5b6684;
 
-  <!-- Google Fonts: Prompt & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  --font-display: "Sarabun", "Space Grotesk", sans-serif;
+  --font-body: "Sarabun", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Prompt', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            blueprint: {
-              50: '#f0f7ff',
-              100: '#e0effe',
-              800: '#1e40af',
-              900: '#0f172a',
-            },
-            concrete: {
-              50: '#f8fafc',
-              100: '#f1f5f9',
-              200: '#e2e8f0',
-              600: '#475569',
-              800: '#1e293b',
-            },
-            safety: {
-              500: '#f97316',
-              600: '#ea580c',
-            }
-          }
+  --container: 1120px;
+  --radius: 18px;
+  --transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+}
+
+.section {
+  padding: 108px 0;
+  position: relative;
+}
+
+.section-alt {
+  background: linear-gradient(180deg, transparent, var(--bg-alt) 12%, var(--bg-alt) 88%, transparent);
+}
+
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(79, 143, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 143, 255, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+}
+
+main, header, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================
+   HEADER / NAV
+   ========================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 11, 20, 0.78);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.logo-mark {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--bg);
+  background: var(--cyan);
+  padding: 3px 7px;
+  border-radius: 5px;
+  letter-spacing: 0.05em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-links a {
+  position: relative;
+  padding: 8px 14px;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  border-radius: 999px;
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-links a::before {
+  content: attr(data-tag);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--cyan);
+  margin-right: 6px;
+  opacity: 0.7;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--panel);
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 18px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.menu-toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.menu-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================================
+   EYEBROW / LABELS
+   ========================================================== */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 4px rgba(110, 231, 249, 0.15);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(110, 231, 249, 0.15); }
+  50% { box-shadow: 0 0 0 8px rgba(110, 231, 249, 0.05); }
+}
+
+.tag-num {
+  font-family: var(--font-mono);
+  color: var(--bg);
+  background: var(--cyan);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+.section-heading {
+  max-width: 640px;
+  margin-bottom: 56px;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+
+/* ==========================================================
+   HERO
+   ========================================================== */
+.hero {
+  padding-top: 88px;
+  padding-bottom: 64px;
+  overflow: hidden;
+}
+
+.orbit-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+  z-index: 1;
+}
+
+.profile-photo {
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  padding: 5px;
+  margin-bottom: 26px;
+  background: conic-gradient(from 180deg, var(--blue), var(--cyan), var(--amber), var(--blue));
+  box-shadow: 0 0 0 1px var(--panel-border), 0 12px 30px -10px rgba(79, 143, 255, 0.55);
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--bg);
+  display: block;
+}
+
+@media (max-width: 560px) {
+  .profile-photo {
+    width: 128px;
+    height: 128px;
+  }
+}
+
+.hero-name {
+  color: var(--blue);
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-nick {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  line-height: 1.22;
+  margin-bottom: 22px;
+}
+
+.lead {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 52ch;
+  margin-bottom: 34px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+}
+
+.button.primary {
+  background: var(--blue);
+  color: #05070d;
+  box-shadow: 0 8px 24px -8px rgba(79, 143, 255, 0.6);
+}
+
+.button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(79, 143, 255, 0.75);
+}
+
+.button.secondary {
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  background: var(--panel);
+}
+
+.button.secondary:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.hero-data {
+  display: grid;
+  gap: 14px;
+  z-index: 1;
+}
+
+.data-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.data-card:hover {
+  border-color: var(--blue-soft);
+  transform: translateY(-3px);
+}
+
+.data-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.data-value {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.data-value--sm {
+  font-size: 1.35rem;
+}
+
+.data-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--text-faint);
+}
+
+.scroll-cue span {
+  width: 1px;
+  height: 26px;
+  background: linear-gradient(var(--cyan), transparent);
+  animation: scrollcue 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollcue {
+  0% { transform: scaleY(0.3); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* ==========================================================
+   CARDS
+   ========================================================== */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  border-color: var(--blue-soft);
+}
+
+.card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.08rem;
+  margin-bottom: 16px;
+}
+
+.card-icon {
+  color: var(--cyan);
+  font-size: 0.7rem;
+}
+
+.card p {
+  color: var(--text-muted);
+}
+
+.card-note {
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+.card-label-mono {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin-bottom: 14px;
+}
+
+/* about */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.info-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px dashed var(--panel-border);
+  font-size: 0.92rem;
+}
+
+.info-list li:last-child {
+  border-bottom: none;
+}
+
+.info-list span {
+  color: var(--text-faint);
+}
+
+.info-list strong {
+  text-align: right;
+  font-weight: 600;
+  max-width: 60%;
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill-list span {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: rgba(79, 143, 255, 0.1);
+  color: var(--blue);
+  border: 1px solid var(--blue-soft);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+/* academic */
+.academic-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.4fr;
+  gap: 20px;
+}
+
+.gpa-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.gpa-badge {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.subject-list > div {
+  display: grid;
+  grid-template-columns: 110px 1fr 48px;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.subject-list span {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.subject-list strong {
+  text-align: right;
+  color: var(--blue);
+  font-family: var(--font-mono);
+}
+
+.bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  width: var(--val);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+}
+
+/* research */
+.research-feature {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.research-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.atom-svg {
+  width: 100%;
+  max-width: 280px;
+  overflow: visible;
+}
+
+.orbit-ring {
+  fill: none;
+  stroke: var(--blue-soft);
+  stroke-width: 1.4;
+  transform-origin: 100px 100px;
+}
+
+.orbit-ring--a { stroke: var(--blue); animation: spin 10s linear infinite; }
+.orbit-ring--b { stroke: var(--cyan); animation: spin 14s linear infinite reverse; }
+.orbit-ring--c { stroke: var(--amber); opacity: 0.7; animation: spin 18s linear infinite; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.atom-core {
+  fill: var(--text);
+  filter: drop-shadow(0 0 10px rgba(79, 143, 255, 0.8));
+}
+
+.research-lede {
+  font-size: 1.12rem;
+  color: var(--text);
+  max-width: 56ch;
+  margin-bottom: 34px;
+}
+
+.research-lede strong {
+  color: var(--blue);
+}
+
+.research-steps {
+  display: grid;
+  gap: 16px;
+}
+
+.research-step {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 16px 0;
+  border-top: 1px dashed var(--panel-border);
+}
+
+.step-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  letter-spacing: 0.05em;
+}
+
+.research-step p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* why */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* contact */
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 24px;
+  padding: 48px;
+}
+
+.contact-card h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  max-width: 20ch;
+  margin-top: 10px;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: color var(--transition);
+}
+
+.contact-item:hover {
+  color: var(--blue);
+}
+
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  font-weight: 400;
+  min-width: 78px;
+}
+
+/* ==========================================================
+   FOOTER / MISC
+   ========================================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity var(--transition), transform var(--transition), border-color var(--transition);
+  z-index: 40;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.site-footer {
+  border-top: 1px solid var(--panel-border);
+  padding: 32px 0;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-faint);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-row a:hover {
+  color: var(--blue);
+}
+
+/* ==========================================================
+   REVEAL ON SCROLL
+   ========================================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+@media (max-width: 880px) {
+  .hero-grid,
+  .academic-grid,
+  .research-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid,
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .research-visual {
+    order: -1;
+  }
+
+  .atom-svg {
+    max-width: 200px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--panel-border);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 20px 20px;
+    gap: 4px;
+    display: none;
+  }
+
+  .nav-links.is-open {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 12px 14px;
+  }
+
+  .contact-card {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .section {
+    padding: 76px 0;
+  }
+
+  .hero {
+    padding-top: 56px;
+  }
+
+  .hero-nick {
+    display: block;
+    margin: 8px 0 0;
+  }
+
+  .subject-list > div {
+    grid-template-columns: 88px 1fr 40px;
+    gap: 10px;
+  }
+}
+</style>
+  </head>
+  <body>
+    <div class="grid-overlay" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <nav class="nav container">
+        <a class="logo" href="#home"><span class="logo-mark">01</span>ศิริณพงศ์</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="เปิดเมนู" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a href="#home" data-tag="00">หน้าแรก</a>
+          <a href="#about" data-tag="01">เกี่ยวกับฉัน</a>
+          <a href="#academic" data-tag="02">ผลการเรียน</a>
+          <a href="#research" data-tag="03">เป้าหมายวิจัย</a>
+          <a href="#why" data-tag="04">ทำไมที่นี่</a>
+          <a href="#contact" data-tag="05">ติดต่อ</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero section">
+        <canvas id="orbitCanvas" class="orbit-canvas" aria-hidden="true"></canvas>
+        <div class="container hero-grid">
+          <div class="hero-copy" data-reveal>
+            <div class="profile-photo">
+              <img src="assets/profile.png" alt="ศิริณพงศ์ อำไพพันธุ์" />
+            </div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span>PORTFOLIO — เข้าศึกษาต่อชั้น ม.4</p>
+            <h1>
+              สวัสดีครับ ผมชื่อ<br />
+              <span class="hero-name">ศิริณพงศ์ อำไพพันธุ์</span>
+            </h1>
+            <p class="lead">
+              นักเรียนชั้น ม.3 โรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย พิษณุโลก
+              ผู้มีความหลงใหลในกลไกของชีวิตและชีววิทยา ตั้งเป้าศึกษาต่อในโครงการ วมว.
+              เพื่อมุ่งสู่เส้นทางแพทย์และนักวิจัยทางการแพทย์ในอนาคต
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#research">
+                <span>เป้าหมายของผม</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="button secondary" href="assets/portfolio.pdf" download>
+                ดาวน์โหลด PDF
+              </a>
+            </div>
+          </div>
+          <div class="hero-data" data-reveal>
+            <div class="data-card">
+              <span class="data-label">GPAX</span>
+              <span class="data-value">4.00</span>
+              <span class="data-sub">ผลการเรียนยอดเยี่ยม</span>
+            </div>
+            <div class="data-card">
+              <span class="data-label">เป้าหมายการศึกษา</span>
+              <span class="data-value data-value--sm">โครงการ วมว.</span>
+              <span class="data-sub">จภ.พิษณุโลก</span>
+            </div>
+            <div class="data-card">
+              <span class="data-label">เส้นทางอนาคต</span>
+              <span class="data-value data-value--sm">แพทยศาสตร์</span>
+              <span class="data-sub">และงานวิจัยทางการแพทย์</span>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span></span>SCROLL</div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow"><span class="tag-num">01</span>เกี่ยวกับฉัน</p>
+            <h2>ประวัติส่วนตัวและการเรียนรู้</h2>
+          </div>
+          <div class="about-grid">
+            <div class="card note-card" data-reveal>
+              <h3><span class="card-icon">◆</span>ประวัติส่วนตัว</h3>
+              <ul class="info-list">
+                <li><span>ชื่อ-นามสกุล</span><strong>ศิริณพงศ์ อำไพพันธุ์</strong></li>
+                <li><span>วันเกิด</span><strong>2 กุมภาพันธ์ 2555 (ปีมังกร)</strong></li>
+                <li><span>โรงเรียนปัจจุบัน</span><strong>ร.ร.วิทยาศาสตร์จุฬาภรณราชวิทยาลัย พิษณุโลก</strong></li>
+                <li><span>ระดับชั้น</span><strong>มัธยมศึกษาปีที่ 3</strong></li>
+              </ul>
+            </div>
+            <div class="card note-card" data-reveal>
+              <h3><span class="card-icon">◆</span>ความสนใจและเวลาว่าง</h3>
+              <div class="pill-list">
+                <span>อ่านวารสารวิทย์</span>
+                <span>ศึกษาชีววิทยา</span>
+                <span>ฟังเพลง</span>
+              </div>
+              <p class="card-note">
+                ในเวลาว่าง ผมชอบศึกษาเกี่ยวกับโครงสร้างสิ่งมีชีวิตและกลไกของโรคต่างๆ
+                รวมถึงการฟังเพลงเพื่อผ่อนคลายและเพิ่มสมาธิในการเรียนรู้
+              </p>
+            </div>
+            <div class="card note-card" data-reveal>
+              <h3><span class="card-icon">◆</span>คติประจำใจ</h3>
+              <p>
+                "การรักษาคนไม่ได้เริ่มต้นที่การรักษาโรค แต่เริ่มจากการเข้าใจมนุษย์และใช้วิทยาศาสตร์เป็นเครื่องมือในการบรรเทาความทุกข์"
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="academic" class="section section-alt">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow"><span class="tag-num">02</span>ผลการเรียน</p>
+            <h2>ความมุ่งมั่นที่สะท้อนผ่านผลการเรียน</h2>
+          </div>
+          <div class="academic-grid">
+            <div class="card gpa-card" data-reveal>
+              <span class="card-label-mono">CUMULATIVE_GPA</span>
+              <div class="gpa-badge">4.00</div>
+              <p>เกรดเฉลี่ยสะสมระดับชั้น ม.1–ม.3 สะท้อนถึงความรับผิดชอบและความตั้งใจในการเรียนรู้ทุกหมวดวิชา</p>
+            </div>
+            <div class="card" data-reveal>
+              <span class="card-label-mono">SUBJECT_BREAKDOWN</span>
+              <div class="subject-list">
+                <div>
+                  <span>วิทยาศาสตร์</span>
+                  <div class="bar"><i style="--val:100%"></i></div>
+                  <strong>4.00</strong>
+                </div>
+                <div>
+                  <span>คณิตศาสตร์</span>
+                  <div class="bar"><i style="--val:100%"></i></div>
+                  <strong>4.00</strong>
+                </div>
+                <div>
+                  <span>ภาษาอังกฤษ</span>
+                  <div class="bar"><i style="--val:100%"></i></div>
+                  <strong>4.00</strong>
+                </div>
+                <div>
+                  <span>ภาษาไทย</span>
+                  <div class="bar"><i style="--val:100%"></i></div>
+                  <strong>4.00</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="research" class="section">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow"><span class="tag-num">03</span>เป้าหมายวิจัย</p>
+            <h2>จุดหมายปลายทาง: แพทย์และนักวิจัย</h2>
+          </div>
+          <div class="research-feature" data-reveal>
+            <div class="research-visual" aria-hidden="true">
+              <svg viewBox="0 0 200 200" class="atom-svg">
+                <ellipse cx="100" cy="100" rx="90" ry="34" class="orbit-ring orbit-ring--a" />
+                <ellipse cx="100" cy="100" rx="90" ry="34" class="orbit-ring orbit-ring--b" transform="rotate(60 100 100)" />
+                <ellipse cx="100" cy="100" rx="90" ry="34" class="orbit-ring orbit-ring--c" transform="rotate(120 100 100)" />
+                <circle cx="100" cy="100" r="9" class="atom-core" />
+              </svg>
+            </div>
+            <div class="research-copy">
+              <p class="research-lede">
+                ผมตั้งใจที่จะก้าวไปเป็น<strong>แพทย์</strong> ที่ไม่เพียงแค่ทำการรักษาผู้ป่วย
+                แต่ใช้กระบวนการทางวิทยาศาสตร์ในการทำวิจัยเพื่อค้นหาวิธีการรักษาใหม่ๆ และพัฒนานวัตกรรมทางการแพทย์ของไทย
+              </p>
+              <div class="research-steps">
+                <div class="research-step">
+                  <span class="step-tag">STEP_01</span>
+                  <p>สั่งสมความรู้พื้นฐานชีววิทยาและเคมีเชิงลึกผ่านการเรียนรู้ในโครงการ วมว.</p>
+                </div>
+                <div class="research-step">
+                  <span class="step-tag">STEP_02</span>
+                  <p>เข้าศึกษาต่อในคณะแพทยศาสตร์ และฝึกฝนกระบวนการคิดวิจัยทางการแพทย์อย่างเป็นระบบ</p>
+                </div>
+                <div class="research-step">
+                  <span class="step-tag">STEP_03</span>
+                  <p>เป็นแพทย์นักวิจัยที่ช่วยยกระดับสุขภาวะของประชาชนและสร้างนวัตกรรมสุขภาพให้ประเทศ</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="why" class="section section-alt">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow"><span class="tag-num">04</span>ทำไมต้องที่นี่</p>
+            <h2>เหตุผลที่เลือกเรียนต่อโครงการ วมว.</h2>
+          </div>
+          <div class="why-grid">
+            <div class="card" data-reveal>
+              <h3><span class="card-icon">◆</span>แรงบันดาลใจ</h3>
+              <p>
+                โครงการ วมว. มีบรรยากาศการเรียนรู้ที่เอื้อต่อการทำวิจัย มีการทำงานร่วมกับมหาวิทยาลัย
+                ซึ่งตอบโจทย์ความต้องการในการปูพื้นฐานทางวิทยาศาสตร์สุขภาพของผมอย่างยิ่ง
+              </p>
+            </div>
+            <div class="card" data-reveal>
+              <h3><span class="card-icon">◆</span>ความพร้อม</h3>
+              <p>
+                ผมฝึกฝนทักษะการคิดวิเคราะห์อย่างเป็นระบบ มีวินัยในการเรียน และคุ้นเคยกับวัฒนธรรมการเรียนของ จภ.พล
+                พร้อมที่จะเปิดรับความท้าทายในระดับที่เข้มข้นยิ่งขึ้น
+              </p>
+            </div>
+            <div class="card" data-reveal>
+              <h3><span class="card-icon">◆</span>คุณค่าที่จะมอบให้</h3>
+              <p>
+                ผมพร้อมจะทุ่มเทแรงกายและแรงใจในการทำโครงงานวิทยาศาสตร์ ร่วมสร้างชื่อเสียงให้สถาบัน
+                และเป็นกำลังสำคัญในการขับเคลื่อนสังคมแห่งการเรียนรู้ร่วมกับเพื่อนๆ
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container contact-card" data-reveal>
+          <div>
+            <p class="eyebrow"><span class="tag-num">05</span>ติดต่อ</p>
+            <h2>ช่องทางการติดต่อ</h2>
+          </div>
+          <div class="contact-list">
+            <a href="tel:08XXXXXXXX" class="contact-item">
+              <span class="contact-label">โทรศัพท์</span>
+              <span>08X-XXX-XXXX</span>
+            </a>
+            <a href="mailto:sirinaphong@example.com" class="contact-item">
+              <span class="contact-label">อีเมล</span>
+              <span>sirinaphong@example.com</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <button class="back-to-top" id="backToTop" aria-label="กลับขึ้นด้านบน">↑</button>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <p>© <span id="year"></span> ศิริณพงศ์ อำไพพันธุ์ — Aspiring Medical Researcher.</p>
+        <a href="#home">Back to Top</a>
+      </div>
+    </footer>
+
+    <script>
+// Footer year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Mobile nav toggle
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("is-open");
+  menuToggle.classList.toggle("is-open", isOpen);
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+navLinks.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("is-open");
+    menuToggle.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+  });
+});
+
+// Back to top button
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  backToTop.classList.toggle("is-visible", window.scrollY > 480);
+});
+
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll("[data-reveal]");
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+revealEls.forEach((el) => revealObserver.observe(el));
+
+// Hero network / orbit canvas
+const canvas = document.getElementById("orbitCanvas");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (canvas && !prefersReducedMotion) {
+  const ctx = canvas.getContext("2d");
+  let width, height, nodes;
+  const NODE_COUNT = 46;
+  const LINK_DIST = 130;
+
+  function resize() {
+    const hero = canvas.closest(".hero");
+    width = canvas.width = hero.offsetWidth;
+    height = canvas.height = hero.offsetHeight;
+  }
+
+  function makeNodes() {
+    nodes = Array.from({ length: NODE_COUNT }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+    }));
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (const n of nodes) {
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > width) n.vx *= -1;
+      if (n.y < 0 || n.y > height) n.vy *= -1;
+    }
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i];
+        const b = nodes[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < LINK_DIST) {
+          ctx.strokeStyle = `rgba(79, 143, 255, ${0.14 * (1 - dist / LINK_DIST)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
         }
       }
     }
-  </script>
 
-  <style>
-    body {
-      font-family: 'Prompt', sans-serif;
-      background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.14), transparent 18%),
-                  radial-gradient(circle at bottom right, rgba(251, 146, 60, 0.12), transparent 20%),
-                  #050814;
-      color: #e2e8f0;
+    for (const n of nodes) {
+      ctx.fillStyle = "rgba(110, 231, 249, 0.7)";
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.6, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    .blueprint-grid {
-      background-image: linear-gradient(to right, rgba(148, 163, 184, 0.10) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(148, 163, 184, 0.10) 1px, transparent 1px),
-                        radial-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px);
-      background-size: 38px 38px, 38px 38px;
-    }
+    requestAnimationFrame(step);
+  }
 
-    .math-symbol {
-      position: absolute;
-      font-weight: 800;
-      opacity: 0.22;
-      letter-spacing: -0.05em;
-    }
+  resize();
+  makeNodes();
+  requestAnimationFrame(step);
 
-    .math-line {
-      position: absolute;
-      border-top: 1px dashed rgba(56, 189, 248, 0.35);
-      border-bottom: 1px dashed rgba(248, 113, 20, 0.25);
-    }
-
-    .hero-card,
-    .project-card {
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-      will-change: transform;
-    }
-    .hero-card:hover,
-    .project-card:hover {
-      transform: translateY(-10px) scale(1.01);
-      box-shadow: 0 28px 64px -26px rgba(15, 23, 42, 0.28);
-      border-color: rgba(148, 163, 184, 0.45);
-    }
-    .project-card:hover .project-tag {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px -18px rgba(15, 23, 42, 0.18);
-    }
-    .project-tag {
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-
-    .project-image-wrap {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1.5rem;
-      min-height: 11rem;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.08));
-    }
-    .project-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-    .project-card:hover .project-image-wrap img {
-      transform: scale(1.05);
-    }
-
-    .project-tag {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.55rem 0.85rem;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-    }
-
-    .feature-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.6rem 0.9rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.04);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      color: #334155;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(48px);
-      opacity: 0.65;
-      pointer-events: none;
-    }
-
-    .float-animate {
-      animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
-</head>
-<body class="antialiased selection:bg-orange-500 selection:text-white">
-
-  <!-- ================= 4.1 HEADER & NAVIGATION ================= -->
-  <header class="fixed top-0 inset-x-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 text-white">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      
-      <!-- Logo / Brand -->
-      <a href="#hero" class="flex items-center gap-2 font-bold text-lg tracking-wide group">
-        <span class="w-8 h-8 rounded bg-orange-500 text-slate-900 flex items-center justify-center font-mono font-extrabold group-hover:bg-orange-400 transition">CE</span>
-        <span class="text-slate-100 font-medium">CIVIL<span class="text-orange-500">.PORTFOLIO</span></span>
-      </a>
-
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-        <a href="#about" class="hover:text-orange-400 transition">แนะนำตัว</a>
-        <a href="#skills" class="hover:text-orange-400 transition">ทักษะวิชาการ</a>
-        <a href="#projects" class="hover:text-orange-400 transition">ผลงาน & กิจกรรม</a>
-        <a href="#contact" class="hover:text-orange-400 transition">ติดต่อ</a>
-        <a href="#projects" class="bg-orange-500 hover:bg-orange-600 text-slate-900 px-4 py-2 rounded-lg font-semibold transition shadow-sm">
-          ดูผลงาน
-        </a>
-      </div>
-
-      <!-- Mobile Hamburger Button -->
-      <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2" aria-label="Toggle Menu">
-        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-    </nav>
-
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col gap-4 text-sm font-medium text-slate-300">
-      <a href="#about" class="mobile-link py-1 hover:text-orange-400">แนะนำตัว</a>
-      <a href="#skills" class="mobile-link py-1 hover:text-orange-400">ทักษะวิชาการ</a>
-      <a href="#projects" class="mobile-link py-1 hover:text-orange-400">ผลงาน & กิจกรรม</a>
-      <a href="#contact" class="mobile-link py-1 hover:text-orange-400">ติดต่อ</a>
-    </div>
-  </header>
-
-  <main class="relative pt-16">
-
-    <!-- ================= 4.2 HERO SECTION ================= -->
-    <section id="hero" class="relative min-h-[90vh] flex items-center bg-transparent text-white blueprint-grid overflow-hidden">
-      <!-- Math Decorations -->
-      <div class="absolute top-14 left-10 text-[5rem] text-sky-400 math-symbol">Σ</div>
-      <div class="absolute top-24 right-10 text-[3.5rem] text-orange-400 math-symbol">π</div>
-      <div class="absolute bottom-24 left-1/2 w-72 math-line"></div>
-      <div class="absolute top-32 left-1/3 h-12 w-12 rounded-full border border-sky-400/30"></div>
-      <div class="absolute bottom-10 right-1/3 h-16 w-16 rounded-full border border-orange-400/20"></div>
-      <div class="absolute top-1/2 left-10 h-0.5 w-40 bg-sky-400/10"></div>
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full grid lg:grid-cols-12 gap-12 items-center">
-        
-        <!-- Headline & Subheadline -->
-        <div class="lg:col-span-7 z-10">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-400/20 text-sky-200 text-xs font-semibold mb-6">
-            <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-            ผู้สมัครสายคณิตศาสตร์-วิศวกรรมโยธา ม.4
-          </div>
-          
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-            BUILDING THE <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-300">FUTURE</span><br />
-            <span class="text-orange-500">เด็กชาย ศิริณพงศ์ อำไพพันธุ์</span>
-          </h1>
-
-          <p class="mt-6 text-lg text-slate-300 leading-relaxed font-light max-w-2xl">
-            "มุ่งมั่นสร้างรากฐานที่มั่นคงด้วยตรรกะคณิตศาสตร์ และออกแบบโครงสร้างอย่างเป็นระบบ เพื่อก้าวสู่เส้นทางวิศวกรรมโยธาในอนาคต"
-          </p>
-
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a href="#projects" class="bg-orange-500 hover:bg-orange-600 text-slate-900 font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-orange-500/20 flex items-center gap-2">
-              ดูผลงานของผม
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </a>
-            <a href="#about" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-6 py-3.5 rounded-xl font-medium transition">
-              เกี่ยวกับตัวผม
-            </a>
-          </div>
-        </div>
-
-        <div class="lg:col-span-5 relative flex justify-center z-10">
-          <div class="relative w-full max-w-md overflow-hidden rounded-[2rem] bg-slate-950/90 border border-slate-700 hero-card shadow-2xl">
-            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="Portrait of a student" class="w-full h-full object-cover" />
-            <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-950/95 to-transparent">
-              <p class="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">Profile Snapshot</p>
-              <h3 class="text-2xl font-semibold text-white">นักเรียนสายคณิตศาสตร์</h3>
-              <p class="mt-2 text-slate-300 text-sm leading-relaxed">นำความคิดทางคณิตศาสตร์มาผสานกับโครงสร้างวิศวกรรม เพื่อออกแบบผลงานที่มีเหตุผลและแข็งแกร่ง</p>
-          </div>
-
-          <div class="absolute -right-8 top-1/2 hidden xl:block float-animate">
-            <div class="blob w-24 h-24 bg-sky-500/20"></div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================= 4.3 ABOUT ME ================= -->
-    <section id="about" class="py-20 bg-[#09111e]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="grid lg:grid-cols-12 gap-12 items-center">
-          
-          <!-- Image / Diagram -->
-          <div class="lg:col-span-5 reveal">
-            <div class="p-8 rounded-2xl bg-slate-950/95 border border-slate-800 relative shadow-[0_20px_80px_-50px_rgba(0,0,0,0.5)]">
-              <div class="absolute top-4 left-4 text-xs font-mono text-slate-400">// MOTIVATION</div>
-              <div class="mt-4 space-y-4">
-                <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.7)] flex items-start gap-4">
-                  <div class="p-2.5 bg-blue-950 text-blue-300 rounded-lg text-xl">🏛️</div>
-                  <div>
-                    <h4 class="font-bold text-slate-100 text-sm">ความหลงใหลในโครงสร้าง</h4>
-                    <p class="text-xs text-slate-400 mt-1">ชอบสังเกตและศึกษาการถ่ายน้ำหนักของสะพาน อาคาร และสิ่งก่อสร้างรอบตัว</p>
-                  </div>
-                </div>
-                <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.7)] flex items-start gap-4">
-                  <div class="p-2.5 bg-orange-950 text-orange-300 rounded-lg text-xl">📐</div>
-                  <div>
-                    <h4 class="font-bold text-slate-100 text-sm">การคำนวณและวาดแบบ</h4>
-                    <p class="text-xs text-slate-400 mt-1">มีความสุขกับการแก้โจทย์ฟิสิกส์ การคำนวณแรง และเริ่มฝึกฝนซอฟต์แวร์ออกแบบ 3D</p>
-                  </div>
-                </div>
-                <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.7)] flex items-start gap-4">
-                  <div class="p-2.5 bg-slate-800 text-slate-100 rounded-lg text-xl">🎯</div>
-                  <div>
-                    <h4 class="font-bold text-slate-100 text-sm">เป้าหมายชัดเจน</h4>
-                    <p class="text-xs text-slate-400 mt-1">มุ่งมั่นเข้าศึกษาแผนเตรียมวิศวกรรมศาสตร์ โยธา เพื่อเป็นวิศวกรที่มีคุณภาพในอนาคต</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Text Bio -->
-          <div class="lg:col-span-7 reveal">
-            <p class="text-xs font-bold uppercase tracking-wider text-orange-500">About Me</p>
-            <h2 class="mt-2 text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
-              เกี่ยวกับตัวผม & แรงบันดาลใจ
-            </h2>
-            
-            <p class="mt-6 text-slate-300 leading-relaxed">
-              สวัสดีครับผม <strong>เด็กชาย ศิริณพงศ์ อำไพพันธุ์</strong> กำลังศึกษาอยู่ชั้นมัธยมศึกษาปีที่ 3 โรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย พิษณุโลก ผมมีความสนใจและความหลงใหลในงานวิศวกรรมโยธามาตั้งแต่เด็ก เริ่มจากการชอบต่อบล็อกสร้างโครงสร้าง จนพัฒนามาสู่ความสนใจในวิชาฟิสิกส์และคณิตศาสตร์อย่างจริงจัง
-            </p>
-            <p class="mt-4 text-slate-300 leading-relaxed">
-              ผมเชื่อว่า "วิศวกรรมโยธา" คือรากฐานสำคัญของการพัฒนาประเทศ ทั้งถนน สะพาน อาคาร และระบบสาธารณูปโภค การได้เข้าศึกษาในแผนการเรียนเตรียมวิศวกรรมศาสตร์ (วิศวกรรมโยธา) จะเป็นก้าวสำคัญที่ช่วยเติมเต็มความรู้ทั้งทฤษฎีและปฏิบัติ เพื่อเตรียมความพร้อมสู่การเป็นวิศวกรโยธาในอนาคตครับ
-            </p>
-
-            <div class="mt-8 grid sm:grid-cols-2 gap-4 border-t border-slate-800 pt-6">
-              <div>
-                <span class="text-xs text-slate-500 block font-mono">SCHOOL</span>
-                <span class="font-semibold text-slate-100 text-sm">โรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย พิษณุโลก</span>
-              </div>
-              <div>
-                <span class="text-xs text-slate-500 block font-mono">TARGET STUDY</span>
-                <span class="font-semibold text-cyan-300 text-sm">เตรียมวิศวกรรมโยธา (ม.4)</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================= 4.4 SKILLS ================= -->
-    <section id="skills" class="py-20 bg-[#09111e] border-y border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-2xl mx-auto reveal">
-          <p class="text-xs font-bold uppercase tracking-wider text-orange-500">Skills & Knowledge</p>
-          <h2 class="mt-2 text-3xl font-extrabold text-white tracking-tight">
-            ทักษะและความสามารถ
-          </h2>
-          <p class="mt-3 text-slate-300 text-sm">
-            ความรู้พื้นฐานด้านวิชาการ ทักษะปฏิบัติการวิศวกรรม และ Soft Skills ที่พร้อมสำหรับการเรียนต่อ
-          </p>
-        </div>
-
-        <div class="mt-12 grid md:grid-cols-3 gap-8">
-          
-          <!-- Skill Group 1: Academic -->
-          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm reveal">
-            <div class="w-10 h-10 rounded-lg bg-blue-900 text-white flex items-center justify-center font-bold text-lg mb-6">
-              📐
-            </div>
-            <h3 class="font-bold text-white text-lg mb-4">วิชาการ (Academic)</h3>
-            
-            <div class="space-y-4">
-              <div>
-                <div class="flex justify-between text-xs font-medium mb-1">
-                  <span class="text-slate-300">คณิตศาสตร์ (Mathematics)</span>
-                  <span class="text-blue-300 font-mono">85%</span>
-                </div>
-                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
-                  <div class="bg-blue-600 h-full rounded-full" style="width: 85%"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="flex justify-between text-xs font-medium mb-1">
-                  <span class="text-slate-300">ฟิสิกส์พื้นฐาน (Physics & Statics)</span>
-                  <span class="text-blue-300 font-mono">80%</span>
-                </div>
-                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
-                  <div class="bg-blue-600 h-full rounded-full" style="width: 80%"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="flex justify-between text-xs font-medium mb-1">
-                  <span class="text-slate-300">วิทยาศาสตร์และคำนวณ</span>
-                  <span class="text-blue-300 font-mono">88%</span>
-                </div>
-                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
-                  <div class="bg-blue-600 h-full rounded-full" style="width: 88%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Skill Group 2: Practical & Drafting -->
-          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm reveal" data-delay="1">
-            <div class="w-10 h-10 rounded-lg bg-orange-500 text-slate-900 flex items-center justify-center font-bold text-lg mb-6">
-              🖥️
-            </div>
-            <h3 class="font-bold text-white text-lg mb-4">การเขียนแบบ & เครื่องมือ</h3>
-            
-            <div class="space-y-4">
-              <div>
-                <div class="flex justify-between text-xs font-medium mb-1">
-                  <span class="text-slate-300">การเขียนแบบมือ (Manual Drafting)</span>
-                  <span class="text-orange-300 font-mono">75%</span>
-                </div>
-                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
-                  <div class="bg-orange-500 h-full rounded-full" style="width: 75%"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="flex justify-between text-xs font-medium mb-1">
-                  <span class="text-slate-300">SketchUp 3D Modeling</span>
-                  <span class="text-orange-300 font-mono">70%</span>
-                </div>
-                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
-                  <div class="bg-orange-500 h-full rounded-full" style="width: 70%"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="flex justify-between text-xs font-medium mb-1">
-                  <span class="text-slate-300">AutoCAD พื้นฐาน</span>
-                  <span class="text-orange-300 font-mono">60%</span>
-                </div>
-                <div class="w-full bg-slate-900/70 h-2 rounded-full overflow-hidden">
-                  <div class="bg-orange-500 h-full rounded-full" style="width: 60%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Skill Group 3: Soft Skills -->
-          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm reveal" data-delay="2">
-            <div class="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold text-lg mb-6">
-              🤝
-            </div>
-            <h3 class="font-bold text-white text-lg mb-4">ทักษะทั่วไป (Soft Skills)</h3>
-            
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">การแก้ปัญหา (Problem Solving)</span>
-              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">การทำงานเป็นทีม (Teamwork)</span>
-              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">ความคิดสร้างสรรค์เชิงวิศวกรรม</span>
-              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">ความละเอียดรอบคอบ (Attention to Detail)</span>
-              <span class="px-3 py-1.5 bg-slate-900/70 text-slate-300 rounded-lg text-xs font-medium">การสื่อสารและนำเสนอ</span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================= 4.5 PROJECTS / ACTIVITIES (10 ITEMS) ================= -->
-    <section id="projects" class="py-24 bg-[#09111e]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-wider text-orange-400">Portfolio Highlights</p>
-            <h2 class="mt-2 text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
-              ผลงานและกิจกรรมที่โดดเด่น
-            </h2>
-          </div>
-          <p class="text-sm text-slate-300 max-w-xl">
-            งานออกแบบ โครงงาน และกิจกรรมนอกห้องเรียนที่สะท้อนความมุ่งมั่นในการเรียนต่อวิศวกรรมโยธา พร้อมภาพประกอบจริงที่สอดคล้องกับแต่ละหัวข้อ
-          </p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-          <article class="project-card p-5 rounded-[2rem] bg-slate-950/90 border border-slate-800 shadow-sm flex flex-col justify-between overflow-hidden">
-            <div>
-              <div class="project-image-wrap">
-                <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e63?auto=format&fit=crop&w=900&q=80" alt="สะพานไม้ไอติม" />
-                <span class="project-tag text-orange-300">STRUCTURE</span>
-              </div>
-              <div class="mt-5">
-                <h3 class="font-bold text-white text-lg">โครงงานสะพานไม้ไอติมรับน้ำหนัก</h3>
-                <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-                  ออกแบบโครงสร้างทรัสและวิเคราะห์จุดรับแรงเพื่อเพิ่มความมั่นคงของสะพานไม้ไอติมที่รับน้ำหนักได้สูงสุดอย่างมีประสิทธิภาพ
-                </p>
-              </div>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
-              บทบาท: หัวหน้าทีมออกแบบโครงสร้าง
-            </div>
-          </article>
-
-          <article class="project-card p-5 rounded-[2rem] bg-slate-950/90 border border-slate-800 shadow-sm flex flex-col justify-between overflow-hidden">
-            <div>
-              <div class="project-image-wrap">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="โมเดล SketchUp" />
-                <span class="project-tag text-sky-300">CAD / 3D DESIGN</span>
-              </div>
-              <div class="mt-5">
-                <h3 class="font-bold text-white text-lg">แบบบ้านพักอาศัย 3D ด้วย SketchUp</h3>
-                <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-                  ฝึกเขียนแบบและกำหนดเสาโครงสร้าง พร้อมจัดสัดส่วนพื้นที่ในอาคารด้วยซอฟต์แวร์ออกแบบสามมิติ
-                </p>
-              </div>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
-              เครื่องมือ: SketchUp Free
-            </div>
-          </article>
-
-          <article class="project-card p-5 rounded-[2rem] bg-slate-950/90 border border-slate-800 shadow-sm flex flex-col justify-between overflow-hidden">
-            <div>
-              <div class="project-image-wrap">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=900&q=80" alt="ค่าย STEM" />
-                <span class="project-tag text-emerald-300">CAMP & WORKSHOP</span>
-              </div>
-              <div class="mt-5">
-                <h3 class="font-bold text-white text-lg">ค่าย STEM Engineering Junior</h3>
-                <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-                  ร่วมกิจกรรมสร้างสรรค์และทดลองจำลองแผ่นดินไหว เพื่อฝึกคิดเชิงวิศวกรรมและแก้ปัญหาเชิงระบบ
-                </p>
-              </div>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
-              รับใบประกาศนียบัตรผ่านการอบรม
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================= 4.6 CONTACT & FOOTER ================= -->
-    <section id="contact" class="py-20 bg-[#08101e] text-white border-t border-slate-800">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        
-        <p class="text-xs font-bold uppercase tracking-wider text-orange-500">Get In Touch</p>
-        <h2 class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
-          ช่องทางการติดต่อ
-        </h2>
-        <p class="mt-3 text-slate-400 text-sm">
-          หากคณะกรรมการมีข้อสงสัยเพิ่มเติม สามารถติดต่อผมได้ผ่านช่องทางด้านล่างนี้ครับ
-        </p>
-
-        <div class="mt-10 grid sm:grid-cols-2 gap-6 text-left max-w-2xl mx-auto">
-          
-          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center gap-4">
-            <div class="p-3 bg-orange-500/10 text-orange-400 rounded-xl text-2xl">
-              ✉️
-            </div>
-            <div>
-              <span class="text-xs font-mono text-slate-400 block">EMAIL</span>
-              <a href="mailto:student.civil@example.com" class="font-medium text-slate-200 hover:text-orange-400 text-sm transition">
-                student.civil@example.com
-              </a>
-            </div>
-          </div>
-
-          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center gap-4">
-            <div class="p-3 bg-blue-500/10 text-blue-400 rounded-xl text-2xl">
-              📞
-            </div>
-            <div>
-              <span class="text-xs font-mono text-slate-400 block">PHONE</span>
-              <a href="tel:0812345678" class="font-medium text-slate-200 hover:text-orange-400 text-sm transition">
-                081-234-5678
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Social Links -->
-        <div class="mt-10 flex justify-center gap-6">
-          <a href="#" class="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition" aria-label="Facebook">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
-          </a>
-          <a href="#" class="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition" aria-label="Line">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.13 3.5 7.6 8.24 8.35.32.07.76.21.87.49.1.25.07.63.03.88l-.15.89c-.05.28-.22 1.1.97.6 1.18-.5 6.38-3.76 8.7-6.44C21.92 13.78 22 12.18 22 10.5 22 5.82 17.52 2 12 2z"/></svg>
-          </a>
-          <a href="#" class="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-slate-700 transition" aria-label="GitHub">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-slate-950 py-6 border-t border-slate-800 text-center text-xs text-slate-500 font-mono">
-    <div class="max-w-7xl mx-auto px-4">
-      <p>Copyright © 2026 [นาย นามสมมุติ มุ่งมั่นดี] — Civil Engineering Portfolio. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- ================= JAVASCRIPT (VANILLA JS) ================= -->
-  <script>
-    (function () {
-      "use strict";
-
-      // 1. Mobile Menu Toggle Logic
-      var menuBtn = document.getElementById("mobile-menu-btn");
-      var mobileMenu = document.getElementById("mobile-menu");
-      var iconOpen = document.getElementById("menu-icon-open");
-      var iconClose = document.getElementById("menu-icon-close");
-
-      if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener("click", function () {
-          var isHidden = mobileMenu.classList.contains("hidden");
-          if (isHidden) {
-            mobileMenu.classList.remove("hidden");
-            iconOpen.classList.add("hidden");
-            iconClose.classList.remove("hidden");
-          } else {
-            mobileMenu.classList.add("hidden");
-            iconOpen.classList.remove("hidden");
-            iconClose.classList.add("hidden");
-          }
-        });
-
-        // Close menu when clicking links
-        var mobileLinks = document.querySelectorAll(".mobile-link");
-        mobileLinks.forEach(function (link) {
-          link.addEventListener("click", function () {
-            mobileMenu.classList.add("hidden");
-            iconOpen.classList.remove("hidden");
-            iconClose.classList.add("hidden");
-          });
-        });
-      }
-
-      // 2. Scroll Reveal Animation Logic
-      var reveals = document.querySelectorAll(".reveal");
-      if ("IntersectionObserver" in window) {
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("in-view");
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-
-        reveals.forEach(function (el) {
-          observer.observe(el);
-        });
-      } else {
-        reveals.forEach(function (el) {
-          el.classList.add("in-view");
-        });
-      }
-
-    })();
-  </script>
-</body>
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      resize();
+      makeNodes();
+    }, 200);
+  });
+}
+</script>
+  </body>
 </html>
