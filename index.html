@@ -22,6 +22,19 @@
             --text-main: #f1f5f9;
             --text-sub: #94a3b8;
             --font-main: 'Prompt', 'Plus Jakarta Sans', sans-serif;
+            
+            /* Tag Colors */
+            --tag-comp-bg: rgba(239, 68, 68, 0.15);
+            --tag-comp-border: rgba(239, 68, 68, 0.4);
+            --tag-comp-text: #f87171;
+
+            --tag-join-bg: rgba(56, 189, 248, 0.15);
+            --tag-join-border: rgba(56, 189, 248, 0.4);
+            --tag-join-text: #38bdf8;
+
+            --tag-vol-bg: rgba(34, 197, 94, 0.15);
+            --tag-vol-border: rgba(34, 197, 94, 0.4);
+            --tag-vol-text: #4ade80;
         }
 
         * {
@@ -255,7 +268,7 @@
         }
 
         /* ==========================================
-           4. SECTIONS, INFO & SKILLS
+           4. SECTIONS & CARDS GENERAL
            ========================================== */
         section {
             padding: 80px 20px;
@@ -376,29 +389,86 @@
             transition: width 1.5s ease-in-out;
         }
 
-        /* Glass Cards for Goals */
-        .grid-cards {
+        /* ==========================================
+           5. ACTIVITIES / PORTFOLIO SECTION (NEW)
+           ========================================== */
+        .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
 
-        .glass-card {
+        .portfolio-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
             border: 1px solid var(--border-glass);
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .glass-card:hover {
+        .portfolio-card:hover {
             transform: translateY(-8px);
             border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
-        .glass-card h3 { color: #fff; margin: 15px 0 10px; }
-        .glass-card p { color: var(--text-sub); font-size: 0.95rem; line-height: 1.6; }
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tag-comp {
+            background: var(--tag-comp-bg);
+            border: 1px solid var(--tag-comp-border);
+            color: var(--tag-comp-text);
+        }
+
+        .tag-join {
+            background: var(--tag-join-bg);
+            border: 1px solid var(--tag-join-border);
+            color: var(--tag-join-text);
+        }
+
+        .tag-vol {
+            background: var(--tag-vol-bg);
+            border: 1px solid var(--tag-vol-border);
+            color: var(--tag-vol-text);
+        }
+
+        .card-year {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .portfolio-card p {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
 
         /* Quote Section */
         .quote-container {
@@ -452,7 +522,7 @@
         <ul class="nav-links">
             <li><a href="#about">ข้อมูลส่วนตัว</a></li>
             <li><a href="#skills">ความถนัด</a></li>
-            <li><a href="#goals">เป้าหมาย</a></li>
+            <li><a href="#portfolio">ผลงาน & กิจกรรม</a></li>
         </ul>
     </nav>
 
@@ -466,7 +536,7 @@
                 <h1>มุ่งมั่นสู่เส้นทาง <span>แพทย์นักวิจัย</span> แห่งอนาคต</h1>
                 <p>สวัสดีครับผม <strong>นายศิริณพงศ์ อำไพพันธุ์</strong> นักเรียนผู้หลงใหลในชีววิทยาและการวิจัยทางการแพทย์ เชื่อมั่นในการประยุกต์ใช้นวัตกรรมเพื่อยกระดับคุณภาพชีวิตของผู้ป่วย</p>
                 <div class="btn-group">
-                    <a href="#skills" class="btn-primary">ดูระดับความถนัด</a>
+                    <a href="#portfolio" class="btn-primary">ดูผลงานและกิจกรรม</a>
                 </div>
             </div>
 
@@ -482,7 +552,7 @@
         </div>
     </section>
 
-    <!-- 1. Personal Info Section (ข้อมูลส่วนตัว) -->
+    <!-- 1. Personal Info Section -->
     <section id="about">
         <div class="section-title">
             <h2>ข้อมูลส่วนตัว (Personal Info)</h2>
@@ -519,13 +589,12 @@
         </div>
     </section>
 
-    <!-- 2. Skills & Competencies Section (ความถนัดระบุเป็นตัวเลข %) -->
+    <!-- 2. Skills & Competencies Section -->
     <section id="skills">
         <div class="section-title">
             <h2>ทักษะและความถนัด (Skill Matrix)</h2>
         </div>
         <div class="skills-container">
-            <!-- Skill 1 -->
             <div class="skill-item">
                 <div class="skill-header">
                     <span class="skill-name">🧬 ชีววิทยา & วิทยาศาสตร์การแพทย์</span>
@@ -536,7 +605,6 @@
                 </div>
             </div>
 
-            <!-- Skill 2 -->
             <div class="skill-item">
                 <div class="skill-header">
                     <span class="skill-name">🔬 กระบวนการวิจัย & สถิติวิเคราะห์</span>
@@ -547,7 +615,6 @@
                 </div>
             </div>
 
-            <!-- Skill 3 -->
             <div class="skill-item">
                 <div class="skill-header">
                     <span class="skill-name">🧪 เคมีเชิงชีวภาพ (Biochemistry)</span>
@@ -558,7 +625,6 @@
                 </div>
             </div>
 
-            <!-- Skill 4 -->
             <div class="skill-item">
                 <div class="skill-header">
                     <span class="skill-name">💻 เทคโนโลยีสารสนเทศทางการแพทย์</span>
@@ -569,7 +635,6 @@
                 </div>
             </div>
 
-            <!-- Skill 5 -->
             <div class="skill-item">
                 <div class="skill-header">
                     <span class="skill-name">🗣️ ภาษาอังกฤษวิชาการ & การนำเสนอ</span>
@@ -580,7 +645,6 @@
                 </div>
             </div>
 
-            <!-- Skill 6 -->
             <div class="skill-item">
                 <div class="skill-header">
                     <span class="skill-name">🧩 การแก้ปัญหาเชิงตรรกะ & วิเคราะห์</span>
@@ -593,22 +657,106 @@
         </div>
     </section>
 
-    <!-- Goals Section -->
-    <section id="goals">
+    <!-- 3. Portfolio & Activities Section (10 รายการ 3 ประเภท) -->
+    <section id="portfolio">
         <div class="section-title">
-            <h2>เป้าหมายในอนาคต</h2>
+            <h2>ผลงานและกิจกรรม (10 Activities)</h2>
         </div>
-        <div class="grid-cards">
-            <div class="glass-card">
-                <div class="card-icon" style="font-size: 2rem;">🩺</div>
-                <h3>การศึกษาสายแพทยศาสตร์</h3>
-                <p>มุ่งศึกษาเพื่อทำความเข้าใจกลไกของร่างกายมนุษย์และโรคภัยต่างๆ อย่างลึกซึ้ง</p>
+        <div class="portfolio-grid">
+            
+            <!-- ประเภท 1: แข่งขัน (Competition - Tag สีแดงเรืองแสง) -->
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-comp">🏆 แข่งขัน</span>
+                    <span class="card-year">2025</span>
+                </div>
+                <h3>การแข่งขันโครงงานวิทยาศาสตร์ทางการแพทย์ (ระดับชาติ)</h3>
+                <p>นำเสนอโครงงานนวัตกรรมสารสกัดจากพฤกษเคมีเพื่อยับยั้งแบคทีเรีย ได้รับรางวัลเหรียญทอง</p>
             </div>
-            <div class="glass-card">
-                <div class="card-icon" style="font-size: 2rem;">🔬</div>
-                <h3>งานวิจัยทางการแพทย์</h3>
-                <p>สร้างสรรค์งานวิจัยนวัตกรรมใหม่เพื่อต่อยอดการรักษาผู้ป่วยให้มีประสิทธิภาพสูงสุด</p>
+
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-comp">🏆 แข่งขัน</span>
+                    <span class="card-year">2025</span>
+                </div>
+                <h3>ตอบปัญหาชีววิทยาและวิทยาศาสตร์การแพทย์</h3>
+                <p>เข้าร่วมการแข่งขันตอบปัญหาชีววิทยาวิชาการระดับมัธยมศึกษาตอนปลาย ได้รับรางวัลรองชนะเลิศอันดับ 1</p>
             </div>
+
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-comp">🏆 แข่งขัน</span>
+                    <span class="card-year">2024</span>
+                </div>
+                <h3>การแข่งขันโอลิมปิกวิชาการ (สอวน. ชีววิทยา)</h3>
+                <p>ผ่านการคัดเลือกเข้าค่าย อบรมและทดสอบภาคทฤษฎี-ภาคปฏิบัติการทางชีววิทยา</p>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-comp">🏆 แข่งขัน</span>
+                    <span class="card-year">2024</span>
+                </div>
+                <h3>นวัตกรรมสุขภาพเยาวชน Health-Tech Hackathon</h3>
+                <p>ออกแบบแนวคิดแอปพลิเคชันช่วยติดตามผลการรับประทานยาของผู้ป่วยโรคเรื้อรัง</p>
+            </div>
+
+            <!-- ประเภท 2: เข้าร่วม (Participation - Tag สีฟ้าเรืองแสง) -->
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-join">🎓 เข้าร่วม</span>
+                    <span class="card-year">2025</span>
+                </div>
+                <h3>ค่ายอยากเป็นหมอ (Medical Summer Camp)</h3>
+                <p>เรียนรู้ทักษะหัตถการเบื้องต้น การซักประวัติ การชันสูตร และศึกษาดูงานในโรงพยาบาลศูนย์</p>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-join">🎓 เข้าร่วม</span>
+                    <span class="card-year">2025</span>
+                </div>
+                <h3>อบรมเชิงปฏิบัติการ "การวิจัยเทคโนโลยีชีวภาพ"</h3>
+                <p>ฝึกปฏิบัติการสกัด DNA, PCR และ Electrophoresis ณ ห้องปฏิบัติการวิจัยชีววิทยา มหาวิทยาลัยนเรศวร</p>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-join">🎓 เข้าร่วม</span>
+                    <span class="card-year">2024</span>
+                </div>
+                <h3>สัมมนาวิชาการทางชีววิทยาและวิทยาศาสตร์สุขภาพ วมว.</h3>
+                <p>นำเสนอและแลกเปลี่ยนความรู้ผลงานวิจัยระดับมัธยมศึกษาร่วมกับเครือข่ายโครงการ วมว. ทั่วประเทศ</p>
+            </div>
+
+            <!-- ประเภท 3: จิตอาสา (Volunteer - Tag สีเขียวเรืองแสง) -->
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-vol">🌱 จิตอาสา</span>
+                    <span class="card-year">2025</span>
+                </div>
+                <h3>หน่วยแพทย์เคลื่อนที่และบริการชุมชน</h3>
+                <p>ช่วยงานลงทะเบียน ตรวจคัดกรองความดันโลหิตเบื้องต้น และแจกจ่ายเอกสารความรู้สุขภาพแก่ชาวบ้าน</p>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-vol">🌱 จิตอาสา</span>
+                    <span class="card-year">2025</span>
+                </div>
+                <h3>โครงการรณรงค์ป้องกันโรคไข้เลือดออกในโรงเรียน</h3>
+                <p>จัดกิจกรรมให้ความรู้เรื่องการกำจัดแหล่งเพาะพันธุ์ยุงลายและส่งเสริมสุขอนามัยในชุมชนรอบโรงเรียน</p>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="card-top">
+                    <span class="tag tag-vol">🌱 จิตอาสา</span>
+                    <span class="card-year">2024</span>
+                </div>
+                <h3>จิตอาสาช่วยงานจุดบริการผู้ป่วยในโรงพยาบาล</h3>
+                <p>คอยอำนวยความสะดวก นำทางผู้สูงอายุ และช่วยประชาสัมพันธ์ขั้นตอนการรับบริการทางการแพทย์</p>
+            </div>
+
         </div>
     </section>
 
